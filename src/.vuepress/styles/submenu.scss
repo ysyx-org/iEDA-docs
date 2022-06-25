@@ -1,0 +1,69 @@
+@media (min-width: 720px){
+	[aria-label=学习讲义] + ul {
+		overflow: visible !important;
+		padding: 0 !important;
+	}
+
+	[aria-label=学习讲义] + ul * {
+		transition: .15s ease-out;
+	}
+
+	[aria-label=学习讲义] + ul li {
+		position: relative;
+		display: block;
+		box-sizing: border-box;
+	}
+
+	[aria-label=学习讲义] + ul .navbar-dropdown-subitem-wrapper:empty {
+		display: none !important;
+	}
+
+	[aria-label=学习讲义] + ul .navbar-dropdown-subitem-wrapper {
+		position: absolute;
+		top: 0;
+		left: calc(100% - 1px);
+		background-color: var(--c-bg-navbar);
+		border: 1px solid var(--c-border);
+		padding: 0.8rem 0.2rem !important;
+	}
+
+	[aria-label=学习讲义] + ul .navbar-dropdown-item .navbar-dropdown-subtitle {
+		padding: 0 !important;
+		margin: 0 !important;
+		display: block;
+	}
+
+	[aria-label=学习讲义] + ul .navbar-dropdown-item .navbar-dropdown-subtitle a {
+		padding: 0.6rem 1rem !important;
+	}
+
+	[aria-label=学习讲义] + ul li:not(:hover) .navbar-dropdown-subitem-wrapper {
+		z-index: -1;
+		left: calc(100% - 20px);
+		opacity: 0;
+		pointer-events: none;
+		transition: .2s ease-out;
+	}
+
+	[aria-label=学习讲义] + ul li:hover .navbar-dropdown-subitem-wrapper {
+		transition-delay: .1s;
+		transition: .15s ease-out;
+	}
+
+	[aria-label=学习讲义] + ul > li:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	html.dark [aria-label=学习讲义] + ul > li:hover {
+		background-color: rgba(255, 255, 255, 0.05);
+	}
+}
+
+@media (max-width: 719px) {
+	[aria-label=学习讲义] + ul .navbar-dropdown-subtitle * {
+		line-height: 2rem !important;
+	}
+	[aria-label=学习讲义] + ul .navbar-dropdown-subitem-wrapper {
+		display: none !important;
+	}
+}

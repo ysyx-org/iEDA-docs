@@ -1,0 +1,33 @@
+@import './container.scss';
+@import './submenu.scss';
+
+:root {
+    scroll-behavior: smooth;
+    // Default theme overrides
+    --c-brand: hsl(200, 80%, 40%);
+    --c-brand-light: hsl(200, 80%, 58%);
+    --c-ct-gray-bg: rgba(0, 0, 0, 0.06);
+    --cf-gray: #888888;
+    --cf-gray-light: #AAAAAA;
+    --back-to-top-color: var(--c-brand);
+    --back-to-top-color-hover: var(--c-brand-light);
+}
+
+html.dark {
+    // Default theme overrides
+    --c-bg: hsl(215, 15%, 12%);
+    --c-brand: hsl(200, 40%, 50%);
+    --c-border: hsl(215, 24%, 20%);
+    --c-brand-light: hsl(200, 60%, 30%);
+    --c-ct-gray-bg: rgba(255, 255, 255, 0.06);
+    --cf-gray: #888888;
+    --cf-gray-light: #555555;
+}
+
+img.logo {
+    html.dark & {
+        filter: contrast(0) brightness(160%);
+    }
+
+    transform: scale(0.9);
+}

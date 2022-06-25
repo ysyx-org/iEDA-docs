@@ -1,0 +1,61 @@
+.custom-container {
+    padding: 1.2rem;
+    border-left-width: 0.5rem;
+    border-left-style: solid;
+    margin: 1rem 0;
+}
+
+.custom-container.c-gray {
+    padding: 1em;
+    border: none;
+    background-color: var(--c-ct-gray-bg);
+    color: var(--c-text-light);
+}
+
+.custom-container.c-green {
+    border-color: hsl(120, 41%, 53%);
+    background-color: hsla(120, 50%, 60%, 0.1);
+    color: hsl(120, 100%, 25%);
+}
+
+html.dark .custom-container.c-green {
+    border-color: hsl(120, 41%, 33%);
+    background-color: hsla(120, 50%, 30%, 0.2);
+    color: hsl(120, 20%, 60%);
+}
+
+.custom-container.c-blue {
+    border-color: hsl(200, 66%, 64%);
+    background-color: hsla(200, 50%, 80%, 0.2);
+    color: hsl(200, 100%, 25%);
+}
+
+html.dark .custom-container.c-blue {
+    border-color: hsl(200, 66%, 44%);
+    background-color: hsla(200, 50%, 30%, 0.2);
+    color: hsl(200, 20%, 60%);
+}
+
+.custom-container.c-yellow {
+    border-color: hsl(28, 79%, 72%);
+    background-color: hsla(28, 100%, 60%, 0.2);
+    color: hsl(28, 100%, 25%);
+}
+
+html.dark .custom-container.c-yellow {
+    border-color: hsl(28, 79%, 52%);
+    background-color: hsla(28, 50%, 40%, 0.2);
+    color: hsl(28, 20%, 60%);
+}
+
+.custom-container.c-red {
+    border-color: hsl(0, 67%, 58%);
+    background-color: hsla(0, 50%, 60%, 0.1);
+    color: hsl(0, 100%, 25%);
+}
+
+html.dark .custom-container.c-red {
+    border-color: hsl(0, 67%, 38%);
+    background-color: hsla(0, 50%, 40%, 0.2);
+    color: hsl(0, 20%, 60%);
+}
