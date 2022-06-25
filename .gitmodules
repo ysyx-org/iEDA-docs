@@ -1,0 +1,4 @@
+[submodule "commmon"]
+	path = commmon
+	url = git@github.com:ysyx-org/frontend-common
+	branch = master
