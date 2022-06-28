@@ -33,7 +33,7 @@ const navbarBrandLogo = computed(() => {
 <template>
 	<RouterLink
 		:to="navbarBrandLink"
-		style="display: flex; align-items: center; height: 100%;"
+		style="display: flex; align-items: center; height: 100%"
 	>
 		<Logo style="height: 1.2em" />
 
@@ -45,7 +45,7 @@ const navbarBrandLogo = computed(() => {
 				color: var(--ct-gray);
 				margin-left: 0.5em;
 				padding: 0 0 0 0.5em;
-        line-height: 1.4em;
+				line-height: 1.4em;
 				border-left: 2px solid var(--cb-gray);
 			"
 		>
