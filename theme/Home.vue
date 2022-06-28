@@ -1,5 +1,5 @@
 <script setup>
-import Logo from './HomeHeroLogo.vue'
+import Logo from './Logo.vue'
 import '@CR/global.css'
 </script>
 
