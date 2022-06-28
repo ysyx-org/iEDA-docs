@@ -1,6 +1,7 @@
 module.exports = Object.freeze([
 	{
 		text: '概览',
+		title: '项目概览',
 		path: '/overview/',
 		children: [
 			// 基本介绍
@@ -12,6 +13,7 @@ module.exports = Object.freeze([
 		]
 	}, {
 		text: '教程',
+		title: '使用教程',
 		path: '/tutorial/',
 		children: [
 			// 芯片设计后端介绍
@@ -25,6 +27,7 @@ module.exports = Object.freeze([
 		]
 	}, {
 		text: '文档',
+		title: '设计文档',
 		path: '/reference/',
 		children: [
 			// 总体介绍
@@ -40,6 +43,7 @@ module.exports = Object.freeze([
 		]
 	}, {
 		text: '生态',
+		title: 'iEDA 生态',
 		path: '/ecosystem/',
 		children: [
 			// 使用生态
@@ -51,6 +55,7 @@ module.exports = Object.freeze([
 		]
 	}, {
 		text: '资源 & 活动',
+		title: '资源和活动',
 		path: '/resources/',
 		children: [
 			// 学习课程

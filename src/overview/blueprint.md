@@ -1,7 +1,4 @@
 # 阶段目标
 
-
-askjdnakjsndkjansdkjna
-
-asmdnkasdnj
-as,md a
+* 构建 28nm 工艺上 Netlist 到 GDSII 芯片设计的开源 EDA 平台
+* 构建开源开放的芯片设计生态体系，降低芯片设计门槛，促进芯片领域产业繁荣

@@ -15,11 +15,12 @@ console.log(Object.fromEntries(
 module.exports = Object.fromEntries(
 	require('./contents')
 		.filter(el => el.children && el.path)
-		.map(({ path, children, ...raw }) => {
+		.map(({ path, title, text, children, ...raw }) => {
 			return [
 				path,
 				[{
 					children: children.map(p => path + p),
+					text: title || text,
 					...raw
 				}]
 			]
