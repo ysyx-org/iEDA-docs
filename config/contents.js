@@ -31,13 +31,14 @@ module.exports = Object.freeze([
 		path: '/reference/',
 		children: [
 			// 总体介绍
-			'intro',
+			// 'intro',
+			'overview/iEDA总体设计文档',
 			// 逻辑综合
 			'logical-synthesis',
 			// 物理设计
 			'physical-design',
 			// 签核分析
-			'sign-out',
+			'sign-off',
 			// 物理验证
 			'physical-verification'
 		]
