@@ -1,8 +1,26 @@
-module.exports = Object.freeze([
+const { resolve } = require('path')
+
+function recursivePath(contents, parentPath = '') {
+	return contents.map(el => {
+		if (typeof el === 'string') return resolve(parentPath, el)
+		else if (typeof el === 'object') {
+			const { path = '.', children, link, ...raw } = el
+			return {
+				path,
+				children: children && recursivePath(children, resolve(parentPath, path)),
+				link: link && resolve(parentPath, path, link),
+				...raw
+			}
+		}
+		else return contents
+	})
+}
+
+const contents = Object.freeze(recursivePath([
 	{
 		text: '概览',
 		title: '项目概览',
-		path: '/overview/',
+		path: '/overview',
 		children: [
 			// 基本介绍
 			'intro',
@@ -14,7 +32,7 @@ module.exports = Object.freeze([
 	}, {
 		text: '教程',
 		title: '使用教程',
-		path: '/tutorial/',
+		path: '/tutorial',
 		children: [
 			// 芯片设计后端介绍
 			'intro',
@@ -28,24 +46,12 @@ module.exports = Object.freeze([
 	}, {
 		text: '文档',
 		title: '设计文档',
-		path: '/reference/',
-		children: [
-			// 总体介绍
-			// 'intro',
-			'overview/iEDA总体设计文档',
-			// 逻辑综合
-			'logical-synthesis',
-			// 物理设计
-			'physical-design',
-			// 签核分析
-			'sign-off',
-			// 物理验证
-			'physical-verification'
-		]
+		path: '/reference',
+		children: require('./src/reference/contents')
 	}, {
 		text: '生态',
 		title: 'iEDA 生态',
-		path: '/ecosystem/',
+		path: '/ecosystem',
 		children: [
 			// 使用生态
 			'application',
@@ -57,7 +63,7 @@ module.exports = Object.freeze([
 	}, {
 		text: '资源 & 活动',
 		title: '资源和活动',
-		path: '/resources/',
+		path: '/resources',
 		children: [
 			// 学习课程
 			'courses',
@@ -74,4 +80,8 @@ module.exports = Object.freeze([
 		text: '联系我们',
 		link: '/contact'
 	}
-])
+]))
+
+// console.log(contents)
+
+module.exports = contents;

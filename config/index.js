@@ -6,6 +6,7 @@ const ROOT = resolve(__dirname, '../');
 
 module.exports = {
 	title: '开源芯片设计平台',
+	head: require('./head'),
 	base: '/',
 	theme: require('../theme')({
 		logo: '/res/iEDA.svg',
@@ -43,18 +44,5 @@ module.exports = {
 				},
 			},
 		}
-	}),
-	/**
-	 * Plugin configurations
-	 */
-	plugins: [
-		[
-			'@vuepress/plugin-search',
-			{ locales: { '/': { placeholder: '搜索' } } },
-		]
-	],
-	/**
-	 * Extra tags to be injected to the page HTML `<head>`
-	 */
-	head: require('./head')
+	})
 }

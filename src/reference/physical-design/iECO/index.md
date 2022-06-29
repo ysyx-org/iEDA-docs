@@ -1,39 +1,21 @@
-<!--
- * @Author: Xingquan-Li fzulxq@gmail.com
- * @Date: 2022-06-29 10:59:46
- * @LastEditors: Xingquan-Li fzulxq@gmail.com
- * @LastEditTime: 2022-06-29 10:59:47
- * @FilePath: /EDA/Page/iEDA-docs/src/reference/physical-design/iECO/iEDA-DRC软件设计说明书.md
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
-# iEDA-RT软件设计说明书
-
-**编制：** iEDA课题组
-
-**审核：** 李兴权
-
-**时间：**
-
+---
+author: iEDA 课题组
+audition: 李兴权
+history:
+  - version: 0.10
+    date: 1971-01-01
+    author: N/A
+    description: 在此填写简要说明 (可选)
 ---
 
-## 版本修改历史
-
-| 版本号 | 日期       | 作者 | 简要说明 |
-| ------ | ---------- | ---- | -------- |
-| 0.10   | 202x-xx-xx |      |          |
-|        |            |      |          |
-|        |            |      |          |
-|        |            |      |          |
-|        |            |      |          |
-
----
+# iRT - 布线
 
 # 1. 简介
 
 **背景**
 
 ![布线在物理设计中的位置](https://images.gitee.com/uploads/images/2022/0527/122207_1dccbcf1_1004707.png "0897178917f3748302ec655a8174aa9.png")
-布线是继布局和时钟树综合之后的重要物理实施任务，其内容是将分布在芯片核内的模块，标准单元和输入输出接口单元按逻辑关系进行互连，并为满足各种约束条件进行优化。iRT是iEDA课题组针对布线阶段设计的一款布线器，其内部集成了全局布线和详细布线。
+布线是继布局和时钟树综合之后的重要物理实施任务，其内容是将分布在芯片核内的模块，标准单元和输入输出接口单元按逻辑关系进行互连，并为满足各种约束条件进行优化。iRT是iEDA 课题组针对布线阶段设计的一款布线器，其内部集成了全局布线和详细布线。
 
 **编写目的**
 

@@ -11,5 +11,6 @@ module.exports = (options) => ({
 		'@theme/ToggleColorModeButton.vue': custom('ThemeSwitch'),
 		'@theme/NavbarBrand.vue': custom('NavbarBrand'),
 		'@theme/Home.vue': custom('Home'),
+		'@theme/Page.vue': custom('page/Page'),
 	}
 })
