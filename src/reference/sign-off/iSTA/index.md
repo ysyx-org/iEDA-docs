@@ -119,7 +119,9 @@ report_timing
 
 ### 2.1 总体架构
 
-![](STA.png)![image.png](https://gitee.com/i-eda/dashboard/attach_files/1073284/download)
+> Image Not available
+<!-- ![](STA.png) -->
+![image.png](https://gitee.com/i-eda/dashboard/attach_files/1073284/download)
 
 iSTA总体架构如上图所示，其中：
 
@@ -186,11 +188,11 @@ STA接口层需在基础数据结构上封装对应的算子并预留接口。
 
   ![image.png](https://images.gitee.com/uploads/images/2022/0525/175517_c8e2287c_8782322.png)
 
-  2、通过求解微分方程得到输出波形电压值以及达到电压阈值时间𝑡_𝑜𝑢𝑡，芯片内部互连线耦合众多，在计算信号通过互连线的延时时，需要对互连线对参数(电阻、电容、电感)进行提取，对提取得到的参数建立等效![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)电路模型，通过微分方程组进行描述, 通过改进的节点分析(MNA)方法对线性电路列出电路方程。
+  2、通过求解微分方程得到输出波形电压值以及达到电压阈值时间𝑡_𝑜𝑢𝑡，芯片内部互连线耦合众多，在计算信号通过互连线的延时时，需要对互连线对参数(电阻、电容、电感)进行提取，对提取得到的参数建立等效![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)电路模型，通过微分方程组进行描述, 通过改进的节点分析(MNA)方法对线性电路列出电路方程。
 
   ![image.png](https://images.gitee.com/uploads/images/2022/0525/170701_da2fc799_8782322.png)
 
-  其中![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)G和![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png)C为电导和存储元件(电感、电容)矩阵，B![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image006.png)和L![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image008.png)为输入输出关联矩阵，节点电压值v![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image010.png)和线性电路支路电流i值![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image012.png)共同组成状态变量向量x![](file:///C:/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image014.png)。
+  其中![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)G和![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png)C为电导和存储元件(电感、电容)矩阵，B![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image006.png)和L![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image008.png)为输入输出关联矩阵，节点电压值v![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image010.png)和线性电路支路电流i值![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image012.png)共同组成状态变量向量x![](https://example.com/file/C/Users/LH/AppData/Local/Temp/msohtmlclip1/01/clip_image014.png)。
 
   3、互连线延时=𝑡_𝑜𝑢𝑡-𝑡_𝑖𝑛电路模型降阶：由于芯片内部互连线耦合众多，对参数提取得到的RLC参数建立等效电路模型，通过微分方程组进行描述，电路方程中的状态变量的个数能够达到数十万个，计算的难度和复杂程度逐渐提升，对于这种级别的模型进行快速有效的分析是基本不可能实现的，对此需要引入模型降阶技术减少电路方程求解规模和加快计算速度。
 
@@ -209,7 +211,9 @@ STA接口层需在基础数据结构上封装对应的算子并预留接口。
 
 Timing Propagation包括Slew Propagation，Delay  Propagation，Const Propagation，AT Propagation等，其目标是在图上面标注slew，delay，arrive time等数据信息。
 
-![](TimingPropagation.JPG)![avatar](https://gitee.com/i-eda/dashboard/attach_files/1073282/download)
+> Image not available
+<!-- ![](TimingPropagation.JPG) -->
+![avatar](https://gitee.com/i-eda/dashboard/attach_files/1073282/download)
 
 如上图所示，Timing Propagation主要沿着时序路径标记slew，delay，arrive time等。一条时序路径又可以分为时钟和数据两部分。时钟路径一般会从外部晶振通过pad输入到PLL中经过倍频相移，然后通过Mux电路，时钟分频电路，时钟buffer等分发给电路的时序单元。而数据路径会从输入port或者FF的Q端经过组合逻辑送入FF的D端。
 
@@ -217,7 +221,8 @@ Timing Propagation包括Slew Propagation，Delay  Propagation，Const Propagatio
 
 时序路径的分析与报告主要是对时序路径的slack计算，TNS，WNS等的计算，并按照格式化的表格输出。
 
-![](时序路径分析.png)![avatar](https://gitee.com/i-eda/dashboard/attach_files/1073280/download)
+<!-- ![](时序路径分析.png) -->
+![avatar](https://gitee.com/i-eda/dashboard/attach_files/1073280/download)
 
 时序路径的分析常见的包括Setup/Hold Check，Recovery/Removal Check，Min Pulse Width/Min Period Check。如上图所示，setup  check默认是单周期检查，从发射延到接收延最长不能超过一个周期。
 
@@ -225,7 +230,8 @@ Timing Propagation包括Slew Propagation，Delay  Propagation，Const Propagatio
 
 hold check默认是同周期检查，当前FF和下一个FF在同一个周期内完成。
 
-![](hold.JPG)![image.jpeg]()
+<!-- ![](hold.JPG) -->
+![image.jpeg]()
 
 Recovery/Removal Check和Min Pulse Width/Min Period在当前版本暂时未实现。
 
