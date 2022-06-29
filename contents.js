@@ -34,12 +34,14 @@ const contents = Object.freeze(recursivePath([
 		title: '使用教程',
 		path: '/tutorial',
 		children: [
-			// 芯片设计后端介绍
-			'intro',
+			// 总体介绍
+			'.',
 			// 工具安装
 			'install-tools',
 			// 自动化设计流程
 			'automated-workflow',
+			// TCL 交互命令
+			'iEDA-TCL',
 			// 芯片测试集
 			'test-suites',
 		]

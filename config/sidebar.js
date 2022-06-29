@@ -1,4 +1,4 @@
-module.exports = Object.fromEntries(
+const sidebar = Object.fromEntries(
 	require('../contents')
 		.filter(el => el?.children && el?.path)
 		.map(({ path, title, text, ...raw }) => {
@@ -11,3 +11,7 @@ module.exports = Object.fromEntries(
 			]
 		})
 )
+
+sidebar['/reference'] = sidebar['/reference']?.[0]?.children
+
+module.exports = sidebar
