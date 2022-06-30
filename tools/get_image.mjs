@@ -37,7 +37,7 @@ for (const file of file_list) {
 			}
 			download_list.push(new Promise((res, rej) => {
 				console.log(`   - downloading ${url} to ${img_file_path}`);
-				const proc = spawn('curl', [url, '-o', img_file_path], {
+				const proc = spawn('curl', [url, '-o', img_file_path, '--connect-timeout', '5'], {
 					stdio: [null, process.stdout, null, null]
 				})
 				proc.on('error', e => {
@@ -62,8 +62,8 @@ for (const file of file_list) {
 				})
 			}))
 			return file_is_index
-				? `![${img_alias}](./${file_name_no_extension}/${img_file_name})`
-				: `![${img_alias}](./${img_file_name})`;
+				? `![${img_alias}](./${img_file_name})`
+				: `![${img_alias}](./${file_name_no_extension}/${img_file_name})`;
 		}
 	)
 	tasks.push(
