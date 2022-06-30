@@ -693,7 +693,8 @@ TrackAssigner::getInst().assignTrack(net_list, ta_type);
       - 重绕线
       - 迭代若干次后还是不行则按密度扩区域
 * 主要流程图
-  <img src = "./iRT/fig.21.png" width="60%">
+  <img src="./iRT/fig.21.png" width="60%">
+  
 * 可调用接口
 
 ```cpp=

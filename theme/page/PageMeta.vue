@@ -37,8 +37,8 @@ const page = usePageData<DefaultThemePageData>();
 
 const toggleMetaDetails = ref(false);
 
-console.log("page", page.value);
-console.log("frontmatter", frontmatter.value);
+// console.log("page", page.value);
+// console.log("frontmatter", frontmatter.value);
 
 const useEditNavLink = (): ComputedRef<null | NavLink> => {
 	return computed(() => {
