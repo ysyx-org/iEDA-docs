@@ -92,7 +92,7 @@ iPA的使用流程为：设置配置文件参数 -> 产生ap点 ->返回数据�
 
 iPA总体架构如下图所示，其中：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0525/113455_6fbbb430_10974145.png)
+![image.png](./iPA/fig.1.png)
 
 * **Database：** iPA数据结构包括**基本数据结构(basic)**和**PA特有数据结构**
   * PADataManager：管理iPA模块所有数据，包括从数据库和配置文件中读取的数据。
@@ -120,7 +120,7 @@ iPA总体架构如下图所示，其中：
 
 ## 2.2 软件流程
 
-![image.png](https://images.gitee.com/uploads/images/2022/0525/112927_61ab0a0e_10974145.png)
+![image.png](./iPA/fig.2.png)
 
 ## 2.3 子模块设计
 
@@ -234,7 +234,7 @@ std::map<Coordinate<ipa_int>, double, cmpCoordinateXASC<ipa_int>> _conflict_cost
 
 > PA点坐标类型
 
-![image.png](https://images.gitee.com/uploads/images/2022/0531/144149_35a8d54f_10974145.png)
+![image.png](./iPA/fig.3.png)
 
 ```
 enum class PAPointType

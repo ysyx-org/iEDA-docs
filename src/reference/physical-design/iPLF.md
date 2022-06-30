@@ -237,7 +237,7 @@ write_def "./result/$RESULT_TIME/iEDA2_FP_cl.def"
 
 ### 2.1 总体架构
 
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/095202_fb80c1f9_1737075.png)
+![图片.png](./iPLF/fig.1.png)
 
 *图2.1 iPLF架构组成示意图*
 
@@ -250,7 +250,7 @@ iPLF作为系统平台层，设计了顶层P&R流程，并从接口层面统一�
 * 集成GUI交互模块，提供统一的GUI交互接口；
 * 设计统一的报告规范、LOG规范等。
 
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/102202_e33a019c_1737075.png)
+![图片.png](./iPLF/fig.2.png)
 
 *图2.2 iPLF软件架构图*
 
@@ -266,7 +266,7 @@ iPLF本身作为系统平台，一是作为顶层模块关联、管理各个模�
 
 iPlatform模块封装了各个点工具运行流程，是控制自动化设计的关键模块；通过配置flow_config.json文件，iEDA可以实现对各个点工具是否启动运行的控制，并且通过设置点工具json文件路径确定了每个点工具以何种参数运行。
 
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/091215_dc053bb1_1737075.png)
+![图片.png](./iPLF/fig.3.png)
 
 *图2.3 iEDA auto run总体流程图*
 
@@ -280,7 +280,7 @@ iDM是基础数据结构iDB的管理器，负责在iEDA整个程序运行过程�
 
 ##### 2.3.2.1 iDM启动
 
-![图片.png](https://images.gitee.com/uploads/images/2022/0525/180115_0a52993f_1737075.png)
+![图片.png](./iPLF/fig.4.png)
 
 *图2.4 iDM启动流程*
 

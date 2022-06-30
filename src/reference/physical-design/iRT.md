@@ -14,7 +14,7 @@ history:
 
 **背景**
 
-![布线在物理设计中的位置](https://images.gitee.com/uploads/images/2022/0527/122207_1dccbcf1_1004707.png "0897178917f3748302ec655a8174aa9.png")
+![布线在物理设计中的位置](./iRT/fig.1.png "0897178917f3748302ec655a8174aa9.png")
 布线是继布局和时钟树综合之后的重要物理实施任务，其内容是将分布在芯片核内的模块，标准单元和输入输出接口单元按逻辑关系进行互连，并为满足各种约束条件进行优化。iRT是iEDA 课题组针对布线阶段设计的一款布线器，其内部集成了全局布线和详细布线。
 
 **编写目的**
@@ -207,7 +207,7 @@ run_rt <irt_config_path>
 
 ## 2.1 总体架构
 
-![iRT架构图](https://images.gitee.com/uploads/images/2022/0527/192811_c63fc6ab_1004707.png "iRouter架构.png")
+![iRT架构图](./iRT/fig.2.png "iRouter架构.png")
 
 * irt_config.json：iRT配置文件
 * iDB：顶层数据来源
@@ -234,7 +234,7 @@ run_rt <irt_config_path>
 
 ## 2.2 软件流程
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/123721_8a9e3a02_1004707.png "LDPC.png")
+![输入图片说明](./iRT/fig.3.png "LDPC.png")
 
 * init()：用于初始化iRT的Config，Database和各个子模块。
 
@@ -364,7 +364,7 @@ void RT::destroy()
 
 所有子模块（SubModule）与顶层（Top）的交互以及子模块的架构如下图所示。
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/210345_a8b81904_1004707.png "Snipaste_2022-06-02_21-03-32.png")
+![输入图片说明](./iRT/fig.4.png "Snipaste_2022-06-02_21-03-32.png")
 
 ### 2.3.1 ExternalInteractor
 
@@ -454,7 +454,7 @@ void RT::destroy()
   
   本模块主要用于在二维布线前，为线网分配资源，以缓解由于布线资源争抢导致的拥塞。
   
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/202955_3847497a_1004707.png "Snipaste_2022-06-02_20-28-49.png")
+  ![输入图片说明](./iRT/fig.5.png "Snipaste_2022-06-02_20-28-49.png")
   
   在初始状态下，每个线网区域内的布线概率是均匀的，虽然每个线网是均匀分布，但是这导致在全局状态下是有叠加的出现。叠加的部分在布线时会有潜在的布线冲突，这会导致拥塞的出现。为此，我们将这个模型建模为二次规划问题，并通过梯度下降来对资源进行分配。分配结束后，全局的资源分配结果是均匀的，但是对于每个线网内的资源分配是不均匀的。线网内的分配结果转换为权值图来指导布线。
 * 功能描述
@@ -465,7 +465,7 @@ void RT::destroy()
   * 将资源图转换为资源代价图
 * 主要流程图
   
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/142854_b9fc1739_1004707.png "Snipaste_2022-06-02_14-28-19.png")
+  ![输入图片说明](./iRT/fig.6.png "Snipaste_2022-06-02_14-28-19.png")
 * 可调用接口
   
   ```cpp=
@@ -479,7 +479,7 @@ void RT::destroy()
   
   本模块主要用于对线网进行二维布线。
   
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/201301_6999248a_1004707.png "Snipaste_2022-06-02_20-12-27.png")
+  ![输入图片说明](./iRT/fig.7.png "Snipaste_2022-06-02_20-12-27.png")
   
   首先结合结合资源分配的结果和拥塞图，构建每个线网对应的布线权值图。随后进行相对位置压缩，将压缩后的标准化点组合在iSR（一个可以构建多个候选斯坦纳树的工具）中查找。从里面找到的最小权值就是需要的候选斯坦纳树。在将获得的斯坦纳树反向映射到布线图上，再将拓扑分解为多个两点线网并分别进行加权布线。
 * 功能描述
@@ -496,7 +496,7 @@ void RT::destroy()
     - A*布线
 * 主要流程图
   
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/142901_11b6a4ff_1004707.png "Snipaste_2022-06-02_14-28-31.png")
+  ![输入图片说明](./iRT/fig.8.png "Snipaste_2022-06-02_14-28-31.png")
 * 可调用接口
   
   ```cpp=
@@ -510,7 +510,7 @@ void RT::destroy()
   
   本模块主要用于将线网的二维布线结果分配到三维上（布线层上）。
   
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/201801_38bd8964_1004707.png "Snipaste_2022-06-02_20-17-46.png")
+  ![输入图片说明](./iRT/fig.9.png "Snipaste_2022-06-02_20-17-46.png")
   
   在二维布线结束后，线网有一个对应的二维结果，我们通过动态规划来将二维结果分配到三维上，并在分配过程中最大限度地降低通孔数量。
 * 功能描述
@@ -521,7 +521,7 @@ void RT::destroy()
   * 构建三维树
 * 主要流程图
   
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/232447_ade2c5d9_1004707.png "Snipaste_2022-06-02_23-24-30.png")
+  ![输入图片说明](./iRT/fig.10.png "Snipaste_2022-06-02_23-24-30.png")
 * 可调用接口
   
   ```cpp=
@@ -532,7 +532,7 @@ void RT::destroy()
 ### 2.3.6 PinAccessor
 
 * 设计思路
-  ![输入图片](https://images.gitee.com/uploads/images/2022/0605/111614_85ece724_10974145.png "pa.png")
+  ![输入图片](./iRT/fig.11.png "pa.png")
   
   - 本模块主要用于选取pin上供金属线(wire/segment)连接的连接点pin accessor(pa点)。
   - 优化目标：希望pa点尽可能选在track交点上(pa点不在track交点上时，通过打补丁(jog)偏移到pin周围的track交点上)，并且pa点与周围其他pin上的pa点的冲突尽可能小。
@@ -544,7 +544,7 @@ void RT::destroy()
   * 针对非 onGrid 类型的 pa 点生成 Jog。
 * 主要流程图<br/>
 
-<img src="https://images.gitee.com/uploads/images/2022/0531/161347_5eb9bdb4_1004707.png" width="45%">
+<img src="./iRT/fig.12.png" width="45%">
 
 * 可调用接口
 
@@ -592,11 +592,11 @@ void PinAccessor::access(std::vector<Net>& net_list)
 * 设计思路
   为了让TA在分配线段的时候有更大的自由度，我们希望抽取的线段能更加灵活一点，所以选择在Pin的位置对Guide进行切割
   以下是内联区域的LocalRegion产生线段图示
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0530/193835_312ac088_7702195.png "屏幕截图.png")
+  ![输入图片说明](./iRT/fig.13.png "屏幕截图.png")
 
 以下是Guide抽线图示
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0525/171936_bc8f1de9_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.14.png "屏幕截图.png")
 
 * 功能描述
   
@@ -605,13 +605,13 @@ void PinAccessor::access(std::vector<Net>& net_list)
     - 去重
 * 主要流程图
 
-<img src="https://images.gitee.com/uploads/images/2022/0531/161623_8e39d7a6_1004707.png" width="45%">
+<img src="./iRT/fig.15.png" width="45%">
 
 * 可调用接口
 
 ### 2.3.8 RegionManager
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0604/161854_7cd7ac4c_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.16.png "屏幕截图.png")
 
 * 设计思路
   为了解决指定大小区域后周边金属例如Pin，block，Seg和区域内已有金属造成的DRC违例，我们会对区域进行膨胀，然后我们通过RM能快速搜索区域内的金属，这样就得到了区域内以及区域边界的金属
@@ -625,7 +625,7 @@ void PinAccessor::access(std::vector<Net>& net_list)
   - 给定层和区域可以通过boost库快速获取相交的所有物体
 * 主要流程图
 
-<img src="https://images.gitee.com/uploads/images/2022/0604/192639_9b01e4ed_7702195.png" width="60%">
+<img src="./iRT/fig.17.png" width="60%">
 
 * 可调用接口
 
@@ -644,7 +644,7 @@ void PinAccessor::access(std::vector<Net>& net_list)
 * 设计思路
   我们已知每个Panel的Pin和Seg的信息，并且知道他们的所在线网，我们简单的可以利用贪心逐步试探，去寻找代价最小的Track，对所有线段进行分配，正常来说判断一个对象是否和其他对象重叠最简单的是1对N比较，然后利用boost的Rtree可以降低时间复杂度
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0604/160521_2d4710e6_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.18.png "屏幕截图.png")
 
 * 功能描述
   
@@ -654,7 +654,7 @@ void PinAccessor::access(std::vector<Net>& net_list)
   - 开始TA，首先进行ILP，如果ILP超时或者无解，采用贪心算法
   - 结果进行合并去重，写回NET
 * 主要流程图
-  <img src="https://images.gitee.com/uploads/images/2022/0604/192217_8019e95a_7702195.png " width="60%">
+  <img src="./iRT/fig.19.png " width="60%">
 * 可调用接口
 
 ```cpp=
@@ -667,7 +667,7 @@ TrackAssigner::getInst().assignTrack(net_list, ta_type);
 * 设计思路
   目前绕线解空间过大，运行时间过长，随着集成电路制造工艺进入7nm以下，数字芯片中标准单元数量已经达到亿数量级，EDA算法已经成为典型的数据密集型计算的典型代表。且在现有布线方法可接受的计算时间内，不一定能得到局部最优解，甚至有可能得到一个劣解。以上两点导致详细绕线的计算时间非常冗长，以小时计。为了减少后续求解规模，加入了区域绕线，先将线网在DRC代价尽量小的情况下连通起来，减少后续绕线规模
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0604/163556_81aef728_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.20.png "屏幕截图.png")
 
 * 功能描述
   
@@ -693,7 +693,7 @@ TrackAssigner::getInst().assignTrack(net_list, ta_type);
       - 重绕线
       - 迭代若干次后还是不行则按密度扩区域
 * 主要流程图
-  <img src = "https://images.gitee.com/uploads/images/2022/0604/192047_b6af9336_7702195.png" width="60%">
+  <img src = "./iRT/fig.21.png" width="60%">
 * 可调用接口
 
 ```cpp=
@@ -772,13 +772,13 @@ f(x,\mu) = \frac{1}{2} x^{T} Q_{G,N}(\mu)x + p_{G,N}(\mu)x
 $$
 
 对于$f(x,\mu)$，我们使用梯度下降方法进行迭代，迭代的过程如下：
-<img src="https://images.gitee.com/uploads/images/2022/0602/210735_b6e852a5_1004707.png"  width="80%"/>
+<img src="./iRT/fig.22.png"  width="80%"/>
 
 ### 2.5.2 Via aware A\*路径搜索算法
 
 传统A\*路径搜索算法是通过$f(x)=g(x)+h(x)$函数来计算每个节点的代价，其中$g(x)$是起点到当前点的已知代价，$h(x)$是当前点到终点的预估代价。当预估代价小于等于实际代价时，A\*算法的结果将会是最优的。在物理设计阶段，布线只会是横平竖直的，所以以曼哈顿距离来计算得到预估距离。为了能够达到更少的通孔数量，iRT通过L型预布线来预估通孔数量。流程图如下所示：
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0602/211243_ecf7376d_1004707.png#pic_center "Snipaste_2022-05-31_16-18-22.png")
+![输入图片说明](./iRT/fig.23.png "Snipaste_2022-05-31_16-18-22.png")
 
 ### 2.5.3 pin access算法设计
 
@@ -829,7 +829,7 @@ End Foreach
 ### 2.5.5 TA算法设计
 
 传统的TrackAssignMent算法是采用下面这样的贪心算法，我们在使用的时候发现，需要考虑额外考虑Pa和Pin的Cost来避免，上层的线段直接将其他线网的PA点给遮挡住
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0604/154645_f6b74704_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.24.png "屏幕截图.png")
 AssignTrack的时候采用Greedy
 
 ```cpp=
@@ -868,9 +868,9 @@ AssignTrack的时候采用Greedy
 ### 2.5.6 RegionRouter算法设计
 
 由于读取Guide的时候，会出现跨层的线段，为了让跨层的线段能在区域绕线这个阶段连接起来，我们通过对每个区域的所有层金属构建一个全局的TOPO，然后检查是否存在跨层的线段，如果有则中间层留点进行连接。其次，我们想利用SR+动态TOPO改变ToPo解决冗余绕线的问题。
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0604/163809_16646c6d_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.25.png "屏幕截图.png")
 然后对每个区域进行绕线，不能绕线的采取强制绕线，所有层结束后，依次每层开始区域拆线重布（扰动），整体框架如下
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0604/164026_be074b36_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.26.png "屏幕截图.png")
 
 ## 2.6 数据结构设计
 
@@ -895,7 +895,7 @@ delete rt_platform;
 
 # 4. DEF输出
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0525/170713_cc85bc74_7702195.png "屏幕截图.png")
+![输入图片说明](./iRT/fig.27.png "屏幕截图.png")
 
 # 5. TO BE DONE
 

@@ -117,7 +117,7 @@ void writeDB();            // 将时钟树综合的结果通过idb写到def文�
 
 ### 2.1 总体架构
 
-![UJK7t8c.png](https://images.gitee.com/uploads/images/2022/0616/201118_84357be3_8138284.png)
+![UJK7t8c.png](./iCTS/fig.1.png)
 
 iCTS总体架构如下图所示，其中：
 
@@ -351,7 +351,7 @@ vector<vector<Value>> kmeans(const vector<Value> &points, int cluster_size) {
 构建时钟树分为两步：第一步构建一个拓扑，第二步是确定拓扑中节点的位置。
 下图是一个树形拓扑。我们以构建树形拓扑为例阐述拓扑的构建。在开始时只有$s_1$、$s_2$、$s_3$、$s_4$四个点。$s_1$、$s_2$被选中归并为$x$节点，随后$s_3$、$s_4$被选中归并为$y$节点。最后由$x、y$归并为根节点$z$,当只有一个节点时拓扑树的构建结束。
 
- ![TJONvNr.png](https://images.gitee.com/uploads/images/2022/0616/201413_2ce9078b_8138284.png)
+ ![TJONvNr.png](./iCTS/fig.2.png)
 
 一个简单的拓扑构建算法的框架如下：
 
@@ -369,7 +369,7 @@ vector<vector<Value>> kmeans(const vector<Value> &points, int cluster_size) {
 
 
 
- ![sADzQuh.png](https://images.gitee.com/uploads/images/2022/0616/201531_499fc47d_8138284.png)
+ ![sADzQuh.png](./iCTS/fig.3.png)
 放置buffer的代码如下所示。
 buffer由CtsInstance类的对象表示，第1行通过CtsDBWrapper对象的get_bounding_box方法获取buffer的外接矩形。因为buffer有不同的类型每种类型的外接矩形的大小都不一样，不同buffer大小的信息存在lef中，因此可以借助iDB来获取buffer的外接矩形。findPlacedLocation函数会从网格图中寻找一个空闲的位置。第9行设置buffer的坐标。第12行把第6行返回的空闲位置设置为障碍物。findPlacedLocation函数是通过广度优先搜索遍历网格图来实现的。
 
@@ -444,7 +444,7 @@ iCTS主要的功能是构建时钟树，因此构建时钟树的算法是iCTS中
 
 DME算法的输入是一个固定的拓扑。拓扑中叶子节点的位置是已知的，DME算法会根据叶子节点的位置来确定各个内部节点的位置。确定内部节点确切位置的过程可以分为两步。第一步自底向上计算拓扑中每个节内部节点所有可行的位置，第二步自顶向下从每个内部节点的可行的位置中选择一个确切的位置。
 ZST算法会构建一个0skew的时钟树，BST算法所构建的时钟树允许有一定的skew, 但是该skew会小于设定的skew上界。ZST和BST算法的差异主要是可行位置所形成的图形不同。下图中的做图和右图分别是ZST和BST算法的例子。从下图中的左图可以看到$s_1、s_2$节点所有可行位置形成一个$45^o$的线段，而下图中的右图$s_1、s_2$节点所有可行位置形成一个多边形。
-![](https://i.imgur.com/UPT54lA.png)
+![](./iCTS/fig.4.png)
 
 
 下面介绍ZST算法如何根据两个子节点$v_1、v_2$确定其父节归并段（所有可行位置）的过程。在此之前需要明确下曼哈顿弧的概念。曼哈顿弧是一个切斜的$45^o$或$135^o$的线段。距离曼哈顿弧距离（曼哈顿距离）相等的各个点会形成一个倾斜的矩形。计算父节点归并段的过程如下：
@@ -453,10 +453,10 @@ ZST算法会构建一个0skew的时钟树，BST算法所构建的时钟树允许
 2. 计算两个子节点对应的边长(dist/2)
 3. 根据边长计算两个子节点的归并段对应的倾斜矩形
 4. 两个子节点归并段的交集作为父节点的归并段
-   ![](https://i.imgur.com/6XwnQMQ.png)
+   ![](./iCTS/fig.5.png)
 
 ZST算法构建一颗时钟树的伪代码如下图所示：
-![](https://i.imgur.com/2fS0t6t.png)
+![](./iCTS/fig.6.png)
 
 算法的详细内容请见[ZST论文](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.460.1106&rep=rep1&type=pdf)和[BST论文](https://dl.acm.org/doi/10.1145/293625.293628)
 
@@ -532,9 +532,9 @@ vector<vector<Value>> operator()(const vector<Value> &points, int cluster_size);
 ### 4.3 比对
 
 商业工具时钟树综合后的结果
-![cadence](https://i.imgur.com/FJVRGUe.png)
+![cadence](./iCTS/fig.7.png)
 iCTS综合后的结果
-![](https://i.imgur.com/Qq6wsHC.png)
+![](./iCTS/fig.8.png)
 上面两幅图分别描述了商业EDA工具和iCTS点工具时钟树综合后的skew结果对比。可以看出虽然skew比较小但和商业EDA工具还是有差距的。因为iCTS是使用的开源EDA中的布局工具给出的结果，而布局的结果对时钟树综合也会有影响。如果采用商业EDA的布局结果，iCTS综合后的结果可能会更好一点。
 
 ## 5. TO BE DONE

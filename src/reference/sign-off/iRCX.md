@@ -57,7 +57,7 @@ history:
 | static timing analysis(STA)                  | 静态时序分析：估计每条路径的时延                          |
 | iDB                                          | iEDA项目下的通用数据库模块                                |
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092508_7da14789_10974744.png" height = 320>
+<img src="./iRCX/fig.1.png" height = 320>
 
 图1.1 Pin、Via、Segment立体视图
 
@@ -119,7 +119,7 @@ Window是一个区域，该区域框了一组导线的几何数据、也有每�
 
 ### 2.1 总体架构
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092924_57099993_10974744.png" height = 320>
+<img src="./iRCX/fig.2.png" height = 320>
 
 图2.1 iRCX总体架构图
 
@@ -133,7 +133,7 @@ Window是一个区域，该区域框了一组导线的几何数据、也有每�
 
 > 描述软件的总体处理流程，**用文字描述清楚整个运行过程，并附上相应的代码**
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092940_dd6d2737_10974744.png">
+<img src="./iRCX/fig.3.png">
 
 图2.2 iRCX软件流程图
 
@@ -196,7 +196,7 @@ MACRO CLKBUF_X1
 
 这个是器件类型为*CLKBUF_X1* 的*Pin A* 的平面形状信息；有了类似以上信息就可以获得构成图2.3的数据了。
 
-`<img src = "https://images.gitee.com/uploads/images/2022/0529/092603_88250723_10974744.png" height = 300>`
+`<img src = "./iRCX/fig.4.png" height = 300>`
 
 图2.3 req_msg[10]在klayout的平面局部视图
 
@@ -212,7 +212,7 @@ LAYER metal1
 
 这里是LEF文件中的metal1层的线宽、层高信息。有了类似这样的信息，就可以获得构成图2.4的数据了。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092619_a2601b1e_10974744.png" height = 300>
+<img src="./iRCX/fig.5.png" height = 300>
 
 图2.4 req_msg[10]立体结构透视图（左） 优先级覆盖视图（右）
 
@@ -281,7 +281,7 @@ void iDBWrapper::buildConductorList() {
 接下来描述一下构建类似于图2.3的效果的通用方式。
 iDB读入DEF中的Net是以点的形式组织起来的，直观感受就是图2.5右图所示。需将将LEF的层高信息、表示点的图形源信息添加过后，才能恢复成图2.5左图的形式。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092650_588a1835_10974744.png" height =280>
+<img src="./iRCX/fig.6.png" height =280>
 
 图2.5 2.5D电流树立体图（左） 2.5D树空间散点图（右）
 
@@ -320,7 +320,7 @@ void Net::buildCurrentDirection(PCL::iDB::IdbNet* net, PCL::iDB::IdbLayers* laye
 
 如图2.6所示。显然*转换点A、B、C*是在同一个连通空间内的；而*转换点D、E、F*是在另一个连通空间内的。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092722_530b9f4d_10974744.png" height = 400>
+<img src="./iRCX/fig.7.png" height = 400>
 
 图2.6 同层Wire局部视图
 
@@ -346,7 +346,7 @@ void Net::removeEdges(RcxTransPoint* driven, PCL::iDB::IdbLayers* layers);
 
 我采用深度遍历的方式去断每一个无向图中*转换点*无效的边。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/092749_a6b28bc8_10974744.png" height = 280>
+<img src="./iRCX/fig.8.png" height = 280>
 
 图2.7 转换点去除无效边视图
 
@@ -401,13 +401,13 @@ D点是我们访问的点，有 x_negative = {F, N}. 经过sort 排序后x_negat
 
 由于数据产生的方式导致了D和N点自身的图形源没有连接，却可以通过F连接的。我会给D,N补上一条segment，同时将F点的segment缩短。图2.8最后会返回1.表示 F = x_negative[1]使得D, N相连。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/093213_73e36569_10974744.png" height = 280>
+<img src="./iRCX/fig.9.png" height = 280>
 
 图2.8 Further连接案例
 
 由于Pin产生的转换点坐标不一定是连接点，所以基本是斜方向连接的都是跟Pin有关的情况，如图2.8所示。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/093233_76def9cd_10974744.png" height = 280>
+<img src="./iRCX/fig.10.png" height = 280>
 
 图2.9 斜方向转换点相连接案例
 
@@ -426,7 +426,7 @@ void Net::distributeSegPoly(PolySet& all_seg, RcxTransPoint* driven);
 
 在分配图形的过程中，可能使得load点最终分配到的图形面积为0，因此有如图2.10所示的策略修复连接关系。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/093300_868be8a0_10974744.png" height = 280>
+<img src="./iRCX/fig.11.png" height = 280>
 
 图2.10 修复load面积为零时的连接关系
 类似的方式可以修复由于优先级分配，使得driven面积为0的情况。
@@ -440,7 +440,7 @@ void fixConnectingWhenDrivenIsEmpty(RcxTransPoint* driven);
 至此，就可以转换为以iRCX基础数据类型所表示的几何数据了。
 最后通过判断长方体之间的是否非零面积相交，就可以获得导体树了。如图2.11所示：我会把归属于同一个via的长方体组合到一起，形成一个节点。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/093317_317007cd_10974744.png" height = 280>
+<img src="./iRCX/fig.12.png" height = 280>
 
 图2.11 导体树示意图
 
@@ -450,7 +450,7 @@ void fixConnectingWhenDrivenIsEmpty(RcxTransPoint* driven);
 
 - **[业务1]via建库：** 由于计算电阻的过程中，有许多改变电流方向的金属部位。这些地方的电阻情况可能需要使用静电场求解器求解。而via出现的地方一定会改变电流方向如图2.12所示，于是我们可以将LEF或相关工艺文件中，关于via的几何数据取出来，然后使用场求解器提前计算出via部件的电阻。这样就可以在全芯片电阻计算的时候减少时间。
 
-<img src="https://images.gitee.com/uploads/images/2022/0529/093339_a22899f7_10974744.png" height = 240>
+<img src="./iRCX/fig.13.png" height = 240>
 
 图2.12 通过via的电流情况
 

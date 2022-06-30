@@ -13,7 +13,7 @@ history:
 
 > iMap项目的目标是实现后端逻辑综合中的工艺映射任务，以及围绕工艺映射相关的优化方案等。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/111858_4dac4cb8_8873045.png)
+![image.png](./iMap/fig.1.png)
 
 工艺映射是芯片设计中的后端软件中不可或缺的一步，其功能上主要是将前端的RTL代码转换为后端物理设计所需的门级netlist。然后版图设计以及物理设计阶段进一步进行相关的处理。
 
@@ -59,7 +59,7 @@ iMap前期的主要数据结构式基于mockturtle的基础上，进行相关数
 基础数据结构相关描述以及图示可参考文档：[https://ieda.yuque.com/g/kzqyb5/qhfw3z/folder/24620660](https://gitee.com/link?target=https://ieda.yuque.com/g/kzqyb5/qhfw3z/folder/24620660)
 
 下图是iMap在数据结构上的一个大致框架：
-![image.png](https://images.gitee.com/uploads/images/2022/0530/113723_2cc541c4_8873045.png)
+![image.png](./iMap/fig.2.png)
 
 ### 2.1 基础数据结构
 
@@ -184,7 +184,7 @@ std::vector<node_type> nodes; // 存储图中所有node，其在容器中的序�
 
 如下图所示：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/200350_f1db9ee2_9646530.png)
+![image.png](./iMap/fig.3.png)
 
 **其数据结构有：**
 
@@ -242,7 +242,7 @@ signal create_ro( std::string const& name = std::string() ) // 创建一个寄�
 
 **注解：node单独来看只是一个and门，但是当结合它的两个入边和一个出边的正反性选择，可以组合出各种逻辑门，并且满足逻辑完备性。例如：nand门，其布尔表达式为Y=!(A&B)，其中Y为新创建的节点的输出signal，等于两个输入节点A、B的取正signal作and运算，即创建以A、B的signal为输入的node（and gate），最后将新创建的node的输出signal取反，得到最终的输出。**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0525/162616_38c2ae69_9646530.png)
+![image.png](./iMap/fig.4.png)
 
 三参数的：
 
@@ -285,7 +285,7 @@ template<typename Fn>
 
 例如：下图中节点集合C={2,3,4,5}就是节点10的一个cut，其满足上述定义中的要求；然而集合{2,3,4}不是节点10的cut，因为存在路径5-9-10不会通过该集合中的任何点。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/200415_c530d967_9646530.png)
+![image.png](./iMap/fig.5.png)
 
 | 专有名词       | 解释                                                                  |
 | -------------- | --------------------------------------------------------------------- |
@@ -331,7 +331,7 @@ bool cut<MaxLeaves, T>::dominates( cut const& that ) const // 判断两个cut间
 
 cut set是指某节点的cut的集合，一个节点可能不止一个cut，如下图所示：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/202937_590c5f3b_9646530.png)
+![image.png](./iMap/fig.6.png)
 
 **其数据成员如下：**
 
@@ -369,7 +369,7 @@ truth table的主要作用是表示一个cut的功能函数，直观地说，节
 
 在表示功能函数的形式时，用X1，X2，......，Xk表示不同的布尔变量，符号σc是一种将变量Xi（1<=i<=k）分配给cut中每一个节点的映射。简单来说，点n的一个cut c中的点在cut中的序号为k，则该节点的功能函数对应的变量为Xk。然后，节点n的cut c的函数用πσ(m, c)表示。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0601/203302_857e1175_9646530.png)
+![image.png](./iMap/fig.7.png)
 
 例：对于node e 的cut c1= {b,c}，若X1代表b的功能函数，X2代表c的功能函数，则有πσ1 (e, c1) = ¬X1 · X2，体现了节点e、c、c之间的逻辑关系。
 
@@ -385,7 +385,7 @@ k-feasible-cut的概念在之前的章节**2.3 cut**中比较详细地讲解过�
 
 cut的生成算法，增量式的生成算法。某点n的cut set的计算方式简单来说就是点n的两个输入点的cut set的笛卡尔积。如下图的例子，node9的cut set就等于它的两条入边对应的node5和node6的cut set作笛卡尔积。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/202644_69f35f97_9646530.png)
+![image.png](./iMap/fig.8.png)
 
 #### 3.1.2 cut-function computation
 
@@ -395,7 +395,7 @@ cut的生成算法，增量式的生成算法。某点n的cut set的计算方式
 
 这里要注意的是cut function计算时，比如下图中的cut c1={1，2，3，7}，node 11将其cut c2={2，3，7}的cut function向后续点node12传递时，是否要传递互补的函数是由node11和node12之间的signal的complement和cut c2的phase标志共同决定的，简单来说，计算的式子是TT（向后传递）=TT（原本的真值表）^complment^phase。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0531/142703_2380b3e9_9646530.png)
+![image.png](./iMap/fig.9.png)
 
 #### 3.1.3 cut-dominates
 
@@ -419,7 +419,7 @@ dominate算法概要：
 
 算出两个cut的sign，计算公式如下：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0601/194135_977afeb7_9646530.png)
+![image.png](./iMap/fig.10.png)
 
 其中c代表某cut，sign（c）代表其对应的signature，id（n）指该cut中的元素，对应包含的节点的id，m等于机器字大小，⊕ 符号代表位或运算。上一张PPT中的两个例子c1={2，3，4，5}的signature为m位的二进制数，其中第2，3，4，5位上是1，其它位上为0；c2={2，3，4，5，6}的signature为m位的二进制数，其中第2，3，4，5，6位上是1，其它位上为0。
 
@@ -433,7 +433,7 @@ dominate算法概要：
 
 优先割的应用，主要是在可容忍范围内质量的下降，对工艺映射在时间上以及内存上的加速。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0602/114432_56dbb688_9646530.png)
+![image.png](./iMap/fig.11.png)
 
 经典的cut枚举算法主要有两个缺点：
 
@@ -453,7 +453,7 @@ priority算法的主要贡献点有两个：
 
 目前实现的iFPGA mapper里面的cut的truth table存储模型，包括仿真以及工艺映射时都会使用到。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0602/114846_8c9fd635_9646530.png)
+![image.png](./iMap/fig.12.png)
 
 ### 3.3 AIG merge
 
@@ -461,19 +461,19 @@ priority算法的主要贡献点有两个：
 
 多个AIGs融合成一个AIG，通过计算choice来减少structural bias的一个手段。要融合的几个AIG是同一个原始的AIG经过了不同的优化处理的结果，它们功能上还是等效的，但是内部结构可能会有差别。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/181117_4687f7ea_9646530.png)
+![image.png](./iMap/fig.13.png)
 
 像上图就是两个等价AIG融合后的结果，我们把两个AIG分别叫做net1和net2，原本net1中的节点有{a,b,c,d,e,p,q,r,t,o}，而net2有{a,b,c,d,e,p,s,u,n}，两个AIG有很多两者都拥有的功能相同的点{a,b,c,d,e,p}，于是这些点只生成一份，供两个AIG使用。这种的结构就是AIG merge后的结构，我们一般称其为miter。
 
 其算法思想我们以下图为例：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/183701_741386ad_9646530.png)![image.png](https://images.gitee.com/uploads/images/2022/0604/183719_0a81b968_9646530.png)![image.png](https://images.gitee.com/uploads/images/2022/0604/183708_9465e7a5_9646530.png)![image.png](https://images.gitee.com/uploads/images/2022/0604/183744_15b59fb0_9646530.png)![image.png](https://images.gitee.com/uploads/images/2022/0604/183753_94cb2776_9646530.png)
+![image.png](./iMap/fig.14.png)![image.png](./iMap/fig.15.png)![image.png](./iMap/fig.16.png)![image.png](./iMap/fig.17.png)![image.png](./iMap/fig.18.png)
 
 将GIA-1和GIA-2 merge成miter，算法步骤如下：
 
 **1、创建出miter的所有PIs，和输入的AIG的PIs一致。**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/184007_cf8e2505_9646530.png)
+![image.png](./iMap/fig.19.png)
 
 **2、对每个AIG做{**
 
@@ -487,21 +487,21 @@ priority算法的主要贡献点有两个：
 
 **}**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/184326_532270a3_9646530.png)
+![image.png](./iMap/fig.20.png)
 
 如上图所示，将第一个AIG的PO7对应的所有中间节点复制给了miter。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/184600_3eef9d5d_9646530.png)
+![image.png](./iMap/fig.21.png)
 
 如上图所示，两个AIG的相同的PO都复制给了miter，算法会在之后的步骤中消除冗余的PO。
 
 **3、删除冗余的POs**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/193917_fa3faed0_9646530.png)
+![image.png](./iMap/fig.22.png)
 
 **注记：dangling node的定义，没有fanout的node。**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0604/194352_42302625_9646530.png)
+![image.png](./iMap/fig.23.png)
 
 ### 3.4 choice computation
 
@@ -509,7 +509,7 @@ priority算法的主要贡献点有两个：
 
 根据融合的AIG，来计算AIG中功能相等或相反的choice点，来实现无损的（loseless）逻辑综合过程。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/135903_8ac021dd_9646530.png)
+![image.png](./iMap/fig.24.png)
 
 上图中，图（I）和图（II）在上一步merge成图（III）后，在通过本节的算法变成图（IV）的aig with choice。其中点t'和 点u'是互补等价的关系，t'是u'的代表点，u'是t'的choice node。
 
@@ -525,7 +525,7 @@ priority算法的主要贡献点有两个：
 
 关于node.phase的计算问题，主要用于快速的等价类内的功能相等或相反的快速判断；
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/142841_2febd87e_9646530.png)
+![image.png](./iMap/fig.25.png)
 
 ### 3.3 technology mapping
 
@@ -537,9 +537,9 @@ priority算法的主要贡献点有两个：
 
 函数为 `void mapping_depth_oriented(int mode)`，这是传统的工艺映射中使用的算法，下图中是传统基于depth-oriented的工艺映射的流程伪代码：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/165026_cd5362ad_9646530.png)
+![image.png](./iMap/fig.26.png)
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/165202_f07a1257_9646530.png)
+![image.png](./iMap/fig.27.png)
 
 工艺映射流程为：
 1、计算出aig中每个点的k-feasibale cuts并保存；
@@ -563,7 +563,7 @@ priority算法的主要贡献点有两个：
 
 基于area recovery方法的工艺映射流程称为WireMap，以下是其总体的流程伪代码，其不同在于在传统的流程上加入了globalAreaEdgeRecvery和localAreaEdgeRecovery这两个流程。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/165321_4fd4330e_9646530.png)
+![image.png](./iMap/fig.28.png)
 
 在这之前先介绍几个概念：
 
@@ -574,7 +574,7 @@ priority算法的主要贡献点有两个：
 （3）Area flow：
 
 定义：某点的area flow值代表用于mapping该点当前的cut的LUT的面积成本。
-计算方法：它可以通过一次从PIs到POs被计算出来，PIs的area flow值预先设为0。某个点n的area flow值的计算公式为：![image.png](https://images.gitee.com/uploads/images/2022/0605/170133_bcfb6cab_9646530.png)
+计算方法：它可以通过一次从PIs到POs被计算出来，PIs的area flow值预先设为0。某个点n的area flow值的计算公式为：![image.png](./iMap/fig.29.png)
 
 式子解释：Leafi(n)是n的cut中的第i个元素；NumFanout(n)是当前mapping中节点n的fanout数量，若该点没被当前的映射所使用到，那将NumFanout(n)设为1。
 作用：area flow估计了cone之间的共享，而不需要重切分它们。
@@ -585,7 +585,7 @@ priority算法的主要贡献点有两个：
 
 （6）exact area of a cut计算方式：从该cut的根节点进行DFS遍历。
 
-（7）edge flow cost function：![image.png](https://images.gitee.com/uploads/images/2022/0605/170654_03bda3e7_9646530.png)
+（7）edge flow cost function：![image.png](./iMap/fig.30.png)
 
 Edge(n)：节点n当前被用在mapping中的代表cut的fanin edges的总数。
 Leafi(n)：节点n的代表cut中的点元素。
@@ -595,13 +595,13 @@ NumFanouts(n) ：节点n在当前mapping状态中fanout的数量。
 
 （1）globalAreaEdgeRecvery的伪代码：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/171212_9179b07a_9646530.png)![image.png](https://images.gitee.com/uploads/images/2022/0605/171217_9df5d8fa_9646530.png)
+![image.png](./iMap/fig.31.png)![image.png](./iMap/fig.32.png)
 
 对应的函数为：`void global_area_edge_recovery()`
 
 （2）LocalAreaEdgeRecovery的伪代码:
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/171515_76ce83c9_9646530.png)![image.png](https://images.gitee.com/uploads/images/2022/0605/171521_7338e87b_9646530.png)
+![image.png](./iMap/fig.33.png)![image.png](./iMap/fig.34.png)
 
 对应的函数为：`void local_area_edge_recovery()`
 
@@ -609,9 +609,9 @@ NumFanouts(n) ：节点n在当前mapping状态中fanout的数量。
 
 下图是该方法的一个例子：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/172145_ca1d50e7_9646530.png)
+![image.png](./iMap/fig.35.png)
 
-![image.png](https://images.gitee.com/uploads/images/2022/0605/172246_636e84bd_9646530.png)
+![image.png](./iMap/fig.36.png)
 
 #### 3.3.3 mapping with choice
 
@@ -654,7 +654,7 @@ flow_manager(const std::string& path_network, const std::string& path_configurat
 
 **主要流程如下图所示：**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0531/165311_cd065abe_9646530.png)
+![image.png](./iMap/fig.37.png)
 
 ### 4.2 输入
 
@@ -708,7 +708,7 @@ enum FileType{
 
 工具目前使用的是一种叫sop balancing的理论去实现深度的优化，例如下图所示，两边的aig的功能相等，但是左边的深度为4而右边的深度为3，工具需要将左边的结构尽量转化成左边那种深度更小的结构，电路的时延就会更小。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0527/193050_b7448e83_9646530.png)
+![image.png](./iMap/fig.38.png)
 
 flow manager的成员函数 `void opt_balance()`提供了balance优化的接口。
 
@@ -716,7 +716,7 @@ flow manager的成员函数 `void opt_balance()`提供了balance优化的接口�
 
 例如下图所示，两边的aig的功能相等，但是左边有3个节点，右边只有两个节点，面积更小，工具需要将左边这种情况的结构转化成右边这种的结构。
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/200940_8a352969_9646530.png)
+![image.png](./iMap/fig.39.png)
 
 flow manager的成员函数 `void opt_rewrite()`提供了rewrite优化的接口。
 
@@ -728,7 +728,7 @@ flow manager的成员函数 `void opt_rewrite()`提供了rewrite优化的接口�
 
 ![](https://office-cn-hangzhou.imm.aliyuncs.com/api/v3/office/copy/SG1hRzY4dEF5bExkR2pqYnV0MkFrbWZNM0orL3MwK1RsQU9QL0dVNWsxS1JHMFJ0ZjhLM0FkWlAzc1hRUDVDb05xakRYN3hPN0dXZXRLL1EzV3k5UklGOFlwbzBKTEUxdzg1V2t1ODNoTFF5RXNPYnFSdlVBd3liSXVuM0tZc1RGOU5Ga1hMVzJoV3RQQ1plNktsd2xQNWdKb1Qyd3NtdVRadm9yeStwbEhDcDF3R21vQ2JsZXd4bHREOTUyYVorbDlnS3pvdnR0YmJjeEt1K1l5cFFxbHZ6MkJYbGM3YTNZY3cyVVhmeUZ6YklsSFIzUU1vSEdVMHk=/attach/object/0f8b708f08667f307b52fcc2437f1432e1062e7b)
 
-![image.png](https://images.gitee.com/uploads/images/2022/0530/201148_afdacd17_9646530.png)
+![image.png](./iMap/fig.40.png)
 
 flow manager的成员函数 `mapper()`提供工艺映射的接口。
 

@@ -52,15 +52,15 @@ iDB提供TCL交互方式，具体的命令请查看[iEDA-TCL手册](https://e.gi
 
 ### 2.1 总体架构
 
- ![图片.png](https://images.gitee.com/uploads/images/2022/0526/173924_9295c085_1737075.png)
+ ![图片.png](./iDB/fig.1.png)
 
 *图2.1 iEDA数据库总体框架图*
 
 图2.1是iEDA整体数据库管理框架图，iDB在此框架中处于**底层数据库**的角色，为上层应用提供数据接口。
 
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/155002_1090f024_1737075.png)
+![图片.png](./iDB/fig.2.png)
 
-<img src="https://images.gitee.com/uploads/images/2022/0526/155002_1090f024_1737075.png" alt="6" style="zoom:70%;" />
+<img src="./iDB/fig.3.png" alt="6" style="zoom:70%;" />
 
 *图2.2 iDB整体架构图*
 
@@ -71,7 +71,7 @@ iDB通过调用各个第三方文件解析器，将解析出来的各类数据�
 ### 2.2 软件流程
 
 描述软件的总体处理流程，**用文字描述清楚整个运行过程，并附上相应的代码**
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/120321_6a7179dc_1737075.png)
+![图片.png](./iDB/fig.4.png)
 
 图2.2 iDB数据处理流程图
 
@@ -112,12 +112,12 @@ IdbDesign：存储P&R相关的设计数据，主要针对各个子工具和模�
 2.6.1 IdbLayout
 
 存储Tech数据，存P&R设计流程中固化的数据结构，也就是在各个子工具和模块中不再变化的数据。
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/164212_8de1e190_1737075.png)
+![图片.png](./iDB/fig.5.png)
 
 2.6.2 IdbDesign
 
 存储P&R相关的设计数据，主要包括各个子工具和模块中动态变化的数据。
-![图片.png](https://images.gitee.com/uploads/images/2022/0526/163149_32c2b924_1737075.png)
+![图片.png](./iDB/fig.6.png)
 
 ## 3. 接口设计
 

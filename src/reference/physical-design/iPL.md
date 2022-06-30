@@ -269,14 +269,14 @@ void runChecker();
 
 列出GP和DP的整体架构设计，目标是在GP和DP阶段完成多功能、强拓展性的布局软件。
 
-![GlobalPlacer](https://images.gitee.com/uploads/images/2022/0525/011944_aa8c3ba1_10972056.png "GP软件结构.png")
+![GlobalPlacer](./iPL/fig.1.png "GP软件结构.png")
 
-![DetailedPlacer](https://images.gitee.com/uploads/images/2022/0525/011911_3d93cefd_10972056.png "DP软件结构.png")
+![DetailedPlacer](./iPL/fig.2.png "DP软件结构.png")
 
 #### 2.1.2 软件架构设计
 
 软件架构设计在项目代码组织上实现功能架构设计。
-![iPL软件架构](https://gitee.com/i-eda/dashboard/attach_files/1078892/download.png "iPL软件架构")
+![iPL软件架构](./iPL/fig.3.png "iPL软件架构")
 
 ##### 2.1.2.1 iPL项目目录结构
 
@@ -360,7 +360,7 @@ void runChecker();
 
 ### 2.2 软件流程
 
-![iPL软件流程](https://gitee.com/i-eda/dashboard/attach_files/1080095/download.png "iPL软件流程")
+![iPL软件流程](./iPL/fig.4.png "iPL软件流程")
 
 1. 输入iPL的配置文件pl_config.json
 2. iPL根据配置文件自动启动Wrapper模块转化生成iPL的基础数据，或由外部提供DBWrapper，初始化PlacerDB
@@ -1079,14 +1079,14 @@ $iPL_LG_ROOT : $iPL_ROOT/src/operator/detail_placer
 ##### 2.5.1.1 线长模型
 
 * 理论
-  ![线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080014/download.png "线长模型")
+  ![线长模型](./iPL/fig.5.png "线长模型")
   全局布局使用的线长评估模型是半周长线长模型HPWL，它能够准确描述3个pin点以下规模的线网（该类型线网在设计中占大多数），且具有计算简便，准确性高的特点。
-  ![HPWL模型](https://gitee.com/i-eda/dashboard/attach_files/1080011/download.png "HPWL模型")
+  ![HPWL模型](./iPL/fig.6.png "HPWL模型")
   由于HPWL模型非光滑，为了后续融合梯度法，需对其进行平滑化处理。有两种常用的线长平滑化函数，分别是LSE和WA。
-  ![LSE线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080012/download.png "LSE线长模型")
-  ![LSE线长模型图示](https://gitee.com/i-eda/dashboard/attach_files/1080017/download.png "LSE线长模型图示")
-  ![WA线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080013/download.png "WA线长模型")
-  ![WA线长模型图示](https://gitee.com/i-eda/dashboard/attach_files/1080018/download.png "WA线长模型图示")
+  ![LSE线长模型](./iPL/fig.7.png "LSE线长模型")
+  ![LSE线长模型图示](./iPL/fig.8.png "LSE线长模型图示")
+  ![WA线长模型](./iPL/fig.9.png "WA线长模型")
+  ![WA线长模型图示](./iPL/fig.10.png "WA线长模型图示")
 * 代码实现
   
   ```bash
@@ -1105,7 +1105,7 @@ $iPL_LG_ROOT : $iPL_ROOT/src/operator/detail_placer
 ##### 2.5.1.3 Nesterov布局模型
 
 * 理论
-  ![Nesterov迭代](https://gitee.com/i-eda/dashboard/attach_files/1079982/download.png "Nesterov迭代")
+  ![Nesterov迭代](./iPL/fig.11.png "Nesterov迭代")
 * 对应的代码实现
 
 ```bash
@@ -1169,40 +1169,40 @@ void Nesterov::calculateNextParameter()
 #### 2.5.2 合法化模型及算法
 
 - 合法化基本模型
-  ![合法化](https://images.gitee.com/uploads/images/2022/0525/123837_07b3a749_10972056.png "合法化.png")
+  ![合法化](./iPL/fig.12.png "合法化.png")
 - Abacus
   对所有单元按照从横坐标顺序进行排列，依据当前总体局面，逐个为每个标准单元选取最合适的行，允许行内的适当调整。
-  ![Abacus](https://images.gitee.com/uploads/images/2022/0525/134112_86bbbb71_10972056.png "Abacus.png")
+  ![Abacus](./iPL/fig.13.png "Abacus.png")
 -伪代码
-![Abacus伪代码](https://images.gitee.com/uploads/images/2022/0614/163123_2617e7fb_10972056.png "屏幕截图.png")
+![Abacus伪代码](./iPL/fig.14.png "屏幕截图.png")
 
 #### 2.5.3 详细布局模型及算法
 
 - 单元扩散
   建图：对整个版图划分格子，对格子之间进行连边，根据格子中的面积进行供给点和需求点分析，形成最小费用最大流（MCMF）问题。
-  ![MCMF](https://images.gitee.com/uploads/images/2022/0525/141119_18a59af9_10972056.png "MCMF.png")
+  ![MCMF](./iPL/fig.15.png "MCMF.png")
 - 全局交换
   对于线长提升的策略来说，将一个单元与其他单元或者空白的位置交换被证明是有效的。但是需要对于选择哪个区域/单元进行交换，并且考虑交换后带来的影响。
   寻找最优区域：
-  ![最优区域](https://images.gitee.com/uploads/images/2022/0525/141854_019deddc_10972056.png "最优区域.png")
+  ![最优区域](./iPL/fig.16.png "最优区域.png")
   惩罚函数示例：
-  ![单元交换的惩罚函数](https://images.gitee.com/uploads/images/2022/0525/142103_4b1f6682_10972056.png "penalty function.png")
+  ![单元交换的惩罚函数](./iPL/fig.17.png "penalty function.png")
 - 局部重排序
   使用基于窗口的方案，设置一个固定大小的窗口，并且在窗口里尝试将其中的单元进行重排序，选取线长最短的顺序作为结果。
-  ![重排序](https://images.gitee.com/uploads/images/2022/0525/143512_6ef2c749_10972056.png "LocalReorder.png")
+  ![重排序](./iPL/fig.18.png "LocalReorder.png")
 - 单元翻转
   由于标准单元上的Pin的位置不同，当标准单元在水平方向进行镜像对称时，所得线网也是不同的，因此会对线长造成一定影响。
-  ![单元翻转](https://images.gitee.com/uploads/images/2022/0525/144049_fead67c7_10972056.png "单元翻转.png")
+  ![单元翻转](./iPL/fig.19.png "单元翻转.png")
 -行内优化
-![行内移动](https://images.gitee.com/uploads/images/2022/0614/162835_f331e1d9_10972056.png "屏幕截图.png")
+![行内移动](./iPL/fig.20.png "屏幕截图.png")
 ### 2.6 数据结构设计
 
 > *描述用到的主要数据结构，包括类的设计，继承关系等等*
 
 合法化：
-![Legalizer类](https://images.gitee.com/uploads/images/2022/0525/170748_dca6d015_10972056.png "屏幕截图.png")
+![Legalizer类](./iPL/fig.21.png "屏幕截图.png")
 详细布局：
-![DetailPlacer类](https://images.gitee.com/uploads/images/2022/0525/170911_ad273a39_10972056.png "屏幕截图.png")
+![DetailPlacer类](./iPL/fig.22.png "屏幕截图.png")
 
 ## 3. 接口设计
 

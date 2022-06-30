@@ -151,7 +151,7 @@ iTO 在被其他工具调用与单独使用的不同点在于： iTO 类的构�
 
 ### 2.1 总体架构
 
-![image.png](https://images.gitee.com/uploads/images/2022/0524/000112_5bcb9bd0_5376247.png)
+![image.png](./iTO/fig.1.png)
 
 **iTO 的总体架构如上图所示，其中：**
 
@@ -165,7 +165,7 @@ iTO 在被其他工具调用与单独使用的不同点在于： iTO 类的构�
 
 > **描述软件的总体处理流程，****用文字描述清楚整个运行过程，并附上相应的代码**
 
-![image.png](https://images.gitee.com/uploads/images/2022/0524/112402_aee4421c_5376247.png)
+![image.png](./iTO/fig.2.png)
 
 在 2.1 节中我们对 iTO 的整体框架进行了简单的介绍，下面我们通过代码来更深层次的了解 iTO 的流程。
 
@@ -316,7 +316,7 @@ void reportHoldResult(vector<double> hold_slacks, vector<int> hold_vio_num,
 
 该模块对线网进行绕线评估，并产生绕线拓扑。绕线方法主要通过开源绕线器 FLUTE 和 HV-Tree 绕线算法，FLUTE 是一种基于查找表的构建直角斯坦纳树方法，HV-Tree 首先计算垂直方向重心，并以此重心作为树干，最后将所有 pin 点水平连接到此树干上。两种方法的绕线拓扑如以下示例所示：
 
-![image.png](https://images.gitee.com/uploads/images/2022/0524/213903_a4142a1b_5376247.png)
+![image.png](./iTO/fig.3.png)
 
 上图中间为 FLUTE 绕线拓扑，右边为 HV-Tree 绕线拓扑。
 
@@ -365,7 +365,7 @@ IdbRow *findRow(int loc_y);
 
 #### 2.3.4 时序设计规则违例优化模块（ViolationOptimizer）
 
-![image.png](https://images.gitee.com/uploads/images/2022/0524/222623_8b462f51_5376247.png)
+![image.png](./iTO/fig.4.png)
 
 时序设计规则约束主要是指最大转换时间约束(max_transition)、最大电容(max_cap)约束和最大扇出(max_fanout)约束。前两个是硬性条件，在签核阶段必须满足要求。不满足时需设计规则约束时就会发生时序设计规则违例(Design Rule Violation, DRV)。该模块的主要功能是进行时序设计规则违例优化，优化的方式为 单元尺寸调整和插入缓冲器。主要步骤如下：
 
@@ -524,7 +524,7 @@ void Reporter::reportDRVResult(int repair_count, int slew_violations,
 
 #### 2.3.5 保持时间优化模块（HoldOptimizer）
 
-![image.png](https://images.gitee.com/uploads/images/2022/0526/003339_a1f06b7b_5376247.png)
+![image.png](./iTO/fig.5.png)
 
 该模块实现保持时间优化功能，主要优化方式为插入延时缓冲器。主要步骤如下：
 
@@ -620,7 +620,7 @@ void Reporter::reportHoldResult(vector<double> hold_slacks, vector<int> hold_vio
 
 #### 2.3.6 建立时间优化模块（SetupOptimizer）
 
-![image.png](https://images.gitee.com/uploads/images/2022/0526/003118_5a6c1ca0_5376247.png)
+![image.png](./iTO/fig.6.png)
 
 该模块实现建立时间优化功能，主要优化方式为单元尺寸调整和插入缓冲器。主要步骤如下：
 

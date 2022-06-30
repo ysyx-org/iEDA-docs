@@ -29,19 +29,19 @@ history:
   ```
 * 寄存器级：借助寄存器将功能实现出来，形成RTL代码
 
-  <img src="https://images.gitee.com/uploads/images/2022/0525/180936_4c445e28_8273072.png" alt="6" style="zoom:25%;" />
+  <img src="./overview/fig.1.png" alt="6" style="zoom:25%;" />
 * 门级：经过综合工具，将RTL代码转化为电路，再将电路映射为由GTech或者标准单元库形成的门级网表；
 
-  <img src="https://images.gitee.com/uploads/images/2022/0525/180919_5542498c_8273072.png" alt="6" style="zoom:25%;" />
+  <img src="./overview/fig.2.png" alt="6" style="zoom:25%;" />
 * 晶体管级：标准单元库中的每个单元均已提前设计好，其中关键组建是晶体管，也是最原子的级别；
 
-  <img src="https://images.gitee.com/uploads/images/2022/0525/181001_adc00885_8273072.png" alt="6" style="zoom:25%;" />
+  <img src="./overview/fig.3.png" alt="6" style="zoom:25%;" />
 * 版图级：门级网表经过物理化之后，会形成一个版图GDS，属于芯片制造的图纸；
 
-  <img src="https://images.gitee.com/uploads/images/2022/0525/181304_6fe49636_8273072.png" alt="6" style="zoom:25%;" />
+  <img src="./overview/fig.4.png" alt="6" style="zoom:25%;" />
 * 掩膜级：芯片生产厂商会根据版图分层设计掩膜，用于指导光刻机进行曝光，先进工艺甚至需要多次曝光；
 
-  <img src="https://images.gitee.com/uploads/images/2022/0525/181100_d80871ac_8273072.png" alt="6" style="zoom:25%;" />
+  <img src="./overview/fig.5.png" alt="6" style="zoom:25%;" />
 
 #### 1.2 设计自动化内容
 
@@ -59,11 +59,11 @@ history:
 * 制造封装测试：主要有Foudary和封测厂完成，回片；
 * PCB：在完成上述步骤后，基本可以得到一颗芯片，可以将其集成到需要的PCB进行实践验证和使用，PCB级板卡也设计到如何布局布线等问题；
 
-<img src="https://images.gitee.com/uploads/images/2022/0526/104146_98f059c1_8273072.png" alt="6" style="zoom:25%;" />
+<img src="./overview/fig.6.png" alt="6" style="zoom:25%;" />
 
 图1.1.1 主要EDA工具步骤
 
-<img src="https://images.gitee.com/uploads/images/2022/0530/145123_9b414b6d_8273072.png" alt="6" style="zoom:30%;" />
+<img src="./overview/fig.7.png" alt="6" style="zoom:30%;" />
 
 图1.1.2 主要EDA工具步骤
 
@@ -75,13 +75,13 @@ history:
 * **分析检查：** 分析环节主要包括：跨时钟域，寄生提取，（静态）时序分析，功耗分析，温度分析，电压降分析，信号/电源完整性分析
 * **掩膜准备：** 掩膜环节主要包括：版图分解，OPC，RET，掩膜生成
 
-<img src="https://images.gitee.com/uploads/images/2022/0525/175128_fb471b46_8273072.png" alt="6" style="zoom:35%;" />
+<img src="./overview/fig.8.png" alt="6" style="zoom:35%;" />
 
 图1.1.3 主要EDA工具步骤
 
 iEDA 课题组主要的研发重点关注在芯片逻辑综合，物理设计，签核分析和物理验证环节，如下图绿色部分所示：
 
-<img src="https://images.gitee.com/uploads/images/2022/0530/150057_1b7674b3_8273072.png" alt="6" style="zoom:30%;" />
+<img src="./overview/fig.9.png" alt="6" style="zoom:30%;" />
 
 图1.1.4 主要EDA工具步骤
 

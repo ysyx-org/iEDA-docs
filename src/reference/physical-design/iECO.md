@@ -14,7 +14,7 @@ history:
 
 **背景**
 
-![布线在物理设计中的位置](https://images.gitee.com/uploads/images/2022/0527/122207_1dccbcf1_1004707.png "0897178917f3748302ec655a8174aa9.png")
+![布线在物理设计中的位置](./iECO/fig.1.png "0897178917f3748302ec655a8174aa9.png")
 布线是继布局和时钟树综合之后的重要物理实施任务，其内容是将分布在芯片核内的模块，标准单元和输入输出接口单元按逻辑关系进行互连，并为满足各种约束条件进行优化。iRT是iEDA 课题组针对布线阶段设计的一款布线器，其内部集成了全局布线和详细布线。
 
 **编写目的**
@@ -215,7 +215,7 @@ run_rt <irt_config_path>
 
 ## 2.1 总体架构
 
-![iRT架构图](https://images.gitee.com/uploads/images/2022/0527/192811_c63fc6ab_1004707.png "iRouter架构.png")
+![iRT架构图](./iECO/fig.2.png "iRouter架构.png")
 
 * irt_config.json：iRT配置文件
 * iDB：顶层数据来源
@@ -242,7 +242,7 @@ run_rt <irt_config_path>
 
 ## 2.2 总体流程
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/123721_8a9e3a02_1004707.png "LDPC.png")
+![输入图片说明](./iECO/fig.3.png "LDPC.png")
 
 * init()：用于初始化iRT的Config，Database和各个子模块。
 ```cpp
@@ -375,7 +375,7 @@ void RT::destroy()
 ### 2.3.2 Direction.hpp
 
 二维方向，用于标识线的方向，有以下三种状态(横，竖，斜)。
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/194923_dcb9c760_1004707.png "b405c3fd35a0201e7765ea59dda6565.png")
+![输入图片说明](./iECO/fig.4.png "b405c3fd35a0201e7765ea59dda6565.png")
 ```cpp
   kNone = 0,
   kHorizontal = 1,
@@ -386,7 +386,7 @@ void RT::destroy()
 ### 2.3.3 GridMap.hpp
 
 网格图，模板类，可自定义网格内存放的数据，其中坐标轴如下所示，原点在左下角。
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/194411_d08dfb67_1004707.png "3.png")
+![输入图片说明](./iECO/fig.5.png "3.png")
 ```cpp
   void init(irt_int x_size, irt_int y_size); // 初始化GridMap
   void init(irt_int x_size, irt_int y_size, T value); // 设定初值后初始化GridMap
@@ -429,13 +429,13 @@ void RT::destroy()
   static MTree<T> getTreeBySegList(T& root_value, std::vector<Segment<T>>& segment_list);
 ```
 对于函数getSegListByTree和getTreeBySegList做出补充解释。
-<img src="http://images.gitee.com/uploads/images/2022/0528/204539_de88beff_1004707.png" width="70%">
+<img src="./iECO/fig.6.png" width="70%">
 
 ### 2.3.5 Orientation.hpp
 
 二维指向，与Direction.hpp不同，指向分为以下四种状态。
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/205824_7aced12b_1004707.png "Snipaste_2022-05-28_20-58-05.png")
+![输入图片说明](./iECO/fig.7.png "Snipaste_2022-05-28_20-58-05.png")
 
 ```cpp=
   kNone = 0,
@@ -448,7 +448,7 @@ void RT::destroy()
 ### 2.3.6 Rectangle.hpp
 
 描述一个矩形，面向坐标的模板
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/211828_d628214f_1004707.png "Snipaste_2022-05-28_21-18-10.png")
+![输入图片说明](./iECO/fig.8.png "Snipaste_2022-05-28_21-18-10.png")
 
 ```cpp=
   Coordinate<T> _lb;
@@ -554,7 +554,7 @@ iRT配置，其中包括对iRT顶层的配置和对各个子模块的配置，�
 
 设计中除了RoutingLayer外，还有CutLayer，CutLayer主要用于放置Via。
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0528/215828_cdd6b027_1004707.png "Snipaste_2022-05-28_21-57-29.png")
+![输入图片说明](./iECO/fig.9.png "Snipaste_2022-05-28_21-57-29.png")
 
 ```cpp=
   irt_int _layer_idx = -1; // cut层id
@@ -608,7 +608,7 @@ enum class DRNodeType
 ```
 
 ### 2.3.17 EXTRectangle.hpp 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0529/102830_0314c529_1004707.png "Snipaste_2022-05-29_10-27-34.png")
+![输入图片说明](./iECO/fig.10.png "Snipaste_2022-05-29_10-27-34.png")
 
 ```cpp=
  private:
@@ -636,7 +636,7 @@ enum class DRNodeType
 ### 2.3.20 GCellGrid.hpp 
 
 下图中，第一条语句中的“1100”为_start_line，“2”为（_step_num+1），“50”为_step_length，_end_line = _start_line+（_step_length*_step_num）。
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0529/104808_c897e1d0_1004707.png "Snipaste_2022-05-29_10-47-47.png")
+![输入图片说明](./iECO/fig.11.png "Snipaste_2022-05-29_10-47-47.png")
 
 ```cpp=
  private:
@@ -659,7 +659,7 @@ GR的结点
 
 ### 2.3.22 Guide.hpp
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0529/114503_622c1812_1004707.png "Snipaste_2022-05-29_11-44-46.png")
+![输入图片说明](./iECO/fig.12.png "Snipaste_2022-05-29_11-44-46.png")
 
 1、保存GR计算的结果，作为TrackAssign输入数据
 2、在RegionRouter模块，保存已有的布线结果，作为建立rrouter的rtree和设置障碍依据。
@@ -961,7 +961,7 @@ kMinAreaPatch = 2,
   * 针对非 onGrid 类型的 pa 点生成 Jog。
 
 * 流程图<br/>
-![image.png](https://images.gitee.com/uploads/images/2022/0526/135426_7c0a32dd_10974145.png)
+![image.png](./iECO/fig.13.png)
 
 * 数据结构
 
@@ -1000,7 +1000,7 @@ kMinAreaPatch = 2,
     - 去重
 
 * 流程图<br/>
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0526/130229_e180faa0_7702195.png "屏幕截图.png")
+![输入图片说明](./iECO/fig.14.png "屏幕截图.png")
 * 数据结构
 
 * 算法设计
@@ -1019,7 +1019,7 @@ kMinAreaPatch = 2,
   - 给定层和区域可以通过boost库快速获取相交的所有物体
 * 流程图
 
-![image.png](https://images.gitee.com/uploads/images/2022/0526/210952_f548834b_10974145.png)
+![image.png](./iECO/fig.15.png)
 
 * 数据结构
 
@@ -1039,13 +1039,13 @@ kMinAreaPatch = 2,
 
 * 流程图<br/>
 
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0526/121852_bb5c14d1_7702195.png "屏幕截图.png")
+  ![输入图片说明](./iECO/fig.16.png "屏幕截图.png")
 
 * 数据结构
 
 * 算法设计
 
-  ![输入图片说明](https://images.gitee.com/uploads/images/2022/0525/171936_bc8f1de9_7702195.png "屏幕截图.png")
+  ![输入图片说明](./iECO/fig.17.png "屏幕截图.png")
 
   ```cpp
   ### AssignTrack的时候采用Greedy
@@ -1110,7 +1110,7 @@ kMinAreaPatch = 2,
       - 迭代若干次后还是不行则按密度扩区域
 
 * 流程图<br/>
-![未命名文件.png](https://images.gitee.com/uploads/images/2022/0526/152550_df0a7c8f_9580140.png)
+![未命名文件.png](./iECO/fig.18.png)
 * 数据结构
 
 * 算法设计
@@ -1172,7 +1172,7 @@ void ExternalInteractor::initDRC(PCL::iDB::IdbBuilder* idb_builder)
 
 ## 4. DEF输出
 
-![输入图片说明](https://images.gitee.com/uploads/images/2022/0525/170713_cc85bc74_7702195.png "屏幕截图.png")
+![输入图片说明](./iECO/fig.19.png "屏幕截图.png")
 
 ## 5. TO BE DONE
 

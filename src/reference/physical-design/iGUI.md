@@ -231,7 +231,7 @@ write_def "./result/$RESULT_TIME/iEDA2_FP_cl.def"
 
 ### 2.1 总体架构
 
-![图片.png](https://images.gitee.com/uploads/images/2022/0525/160533_931f7dad_1737075.png)
+![图片.png](./iGUI/fig.1.png)
 
 *图2.1 iPLF架构示意图*
 

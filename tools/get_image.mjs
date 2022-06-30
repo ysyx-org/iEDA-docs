@@ -1,5 +1,5 @@
-import { spawn, execSync } from 'child_process';
-import { resolve, basename, dirname } from 'path';
+import { spawn, exec, execSync } from 'child_process';
+import { resolve, basename, dirname, relative } from 'path';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import 'colors';
 
@@ -21,12 +21,13 @@ for (const file of file_list) {
 	if (!(file_dir in dir)) dir[file_dir] = 0;
 	let n = 0;
 	const edited_content = content.toString().replace(
-		/(https?\:\/\/.*?\.(png|jpe?g|bmp|svg))/gi,
+		/https?\:\/\/.+?(\.(png|jpe?g|bmp|svg)|download)(?="|\s|\))/gi,
 		url => {
 			const
 				[extension] = url
-					.match(/(?<=\.)(png|jpe?g|bmp|svg)$/gi)
-					.map(el => el.toLowerCase()),
+					.toLowerCase()
+					.match(/(?<=\.)(png|jpe?g|bmp|svg)$/)
+					|| ['png'],
 				img_alias = `fig.${++n}`,
 				img_file_name = [img_alias, extension].join('.'),
 				img_file_path = file_is_index
@@ -36,7 +37,6 @@ for (const file of file_list) {
 				mkdirSync(dirname(img_file_path))
 			}
 			download_list.push(new Promise((res, rej) => {
-				console.log(`   - downloading ${url} to ${img_file_path}`);
 				const proc = spawn(
 					'curl',
 					[
@@ -49,7 +49,7 @@ for (const file of file_list) {
 					{ stdio: [null, process.stdout, null, null] }
 				)
 				proc.on('error', e => {
-					console.error(
+					console.log(
 						e.message
 							.split('\n')
 							.map(el => '  | ERR | ' + el)
@@ -59,13 +59,30 @@ for (const file of file_list) {
 					console.log('  Leaving file empty')
 					try {
 						execSync(`rm -f ${img_file_path}`)
-						execSync(`touch ${img_file_path}`)
 					} catch (e) { }
 					res()
 				})
-				proc.on('exit', code => {
-					console.log(`   - download ${url} complete`);
-					res()
+				proc.on('exit', async code => {
+					if (
+						existsSync(img_file_path) &&
+						await new Promise(res => exec(`file -I ${img_file_path}`, (e, out, err) => {
+							if (!out.includes('image/')) {
+								execSync(`rm -f ${img_file_path}`)
+								res(false)
+							} else res(true)
+						}))
+					) {
+						console.log(`   - download complete: ${url}`);
+					} else {
+						console.log(`   - download failed  : ${url}`);
+						console.error(
+							[
+								relative(PWD, img_file_path),
+								url,
+							].join('\t')
+						)
+						res()
+					}
 				})
 			}))
 			return file_is_index
@@ -73,14 +90,11 @@ for (const file of file_list) {
 				: `./${file_name_no_extension}/${img_file_name}`;
 		}
 	)
-	tasks.push(
-		Promise
-			.all(download_list)
-			.then(() => writeFileSync(
-				file_full_path,
-				edited_content
-			))
+	writeFileSync(
+		file_full_path,
+		edited_content
 	)
+	tasks.push(...download_list)
 }
 
 await Promise.all(tasks);

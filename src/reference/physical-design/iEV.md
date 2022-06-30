@@ -324,7 +324,7 @@ iEV既可以自行解析设计文件（lef/def）输出评估结果，也可以�
 
 iEV 总体架构如下图所示，其中：
 
-<img src="https://images.gitee.com/uploads/images/2022/0523/201951_d7aed15c_8002667.png" height=600>
+<img src="./iEV/fig.1.png" height=600>
 
 - **iDB Adapter**：iDB 可以解析 LEF 文件的数据存于 idb_layout，解析 DEF 文件数据存于 idb_design。iEV若以直接读取文件评估的方式被使用，则以 iDB Adapter作为数据来源。iDB Adapter将iDB解析后的数据转化为iEV内部的数据结构，存放到Database中。
 - **Database**：iEV的内部数据结构，包括两类数据
@@ -346,7 +346,7 @@ iEV 总体架构如下图所示，其中：
 
 ### 2.2 软件流程
 
-<img src="https://images.gitee.com/uploads/images/2022/0524/100556_e8979ad3_8002667.png" height=700/>
+<img src="./iEV/fig.2.png" height=700/>
 
 ### 2.3 子模块设计
 
@@ -359,7 +359,7 @@ iEV 总体架构如下图所示，其中：
 
     子模块流程图如下
 
-    <img src="https://images.gitee.com/uploads/images/2022/0525/113304_828dee1a_8002667.png" height=300/>
+    <img src="./iEV/fig.3.png" height=300/>
 - Config模块
 
   - 整体而言，该模块位于 `iEval/util/config`。根据json信息类别的不同，可新增若干个config类存储不同类别的解析信息，相关实现位于 `iEval/wrapper/config`。Json配置文件也位于 `iEval/wrapper/config`。
@@ -410,7 +410,7 @@ iEV 总体架构如下图所示，其中：
   - 基础数据类型：线长评估需要 `Net`和 `Pin`的信息，分别定义在 `<class LengthNet>` 和 `<class LengthPin>`
   - 线长模型的简单工厂：有多种线长模型需要评估，设计一个简单工厂类进行管理，如下图
 
-  <img src="https://images.gitee.com/uploads/images/2022/0525/172730_00f57823_8002667.png" height=400/>
+  <img src="./iEV/fig.4.png" height=400/>
 - 线长评估的顶层类：
 
   - 类私有成员：定义线网列表，为 ` std::vector<LengthNet*> _length_net_list;`
@@ -523,24 +523,24 @@ iEV 总体架构如下图所示，其中：
 
 - 线长模型概览：
 
-<img src="https://images.gitee.com/uploads/images/2022/0525/224048_17edb8ee_8002667.png" height=500/>
+<img src="./iEV/fig.5.png" height=500/>
 
 - WLM：
 
   线负载模型WLM是厂商根据多种已经生产出来芯片的统计结果，在同样的工艺下，计算出在某个设计规模范围内（例如门数为0-43478，门数为43478-86956，等等）负载扇出为1的连线的平均长度，负载扇出为2的连线的平均长度，负载扇出为3的连线的平均长度等等。如果遇到连线的扇出大于模型种列出的最大扇出值，将使用外推斜率来估算连线的长度。这些信息都会在.lib文件定义。WLM线长评估模型，则需要读取.lib文件获取到WLM表格，进而估算逻辑综合后的网表总线长。
 
-  ![image.png](https://images.gitee.com/uploads/images/2022/0525/232953_a77b3abc_8002667.png) ![image.png](https://images.gitee.com/uploads/images/2022/0525/233020_83139a0f_8002667.png)
+  ![image.png](./iEV/fig.6.png) ![image.png](./iEV/fig.7.png)
 - HPWL：组成net的所有pins围成的外接矩形的半周长。单线网线长的计算式为：$\max _{(x, y) \in V} x-\min _{(x, y) \in V} x+\max _{(x, y) \in V} y-\min _{(x, y) \in V} y .$
 - HTree：取组成net的所有pins，计算x方向的平均值作为树干，其余pin水平连接到该树干，从而构成斯坦纳树算线长。单线网线长的计算式为：$\max _{i, j \in e}\left|y_{i}-y_{j}\right|+\sum_{i \in e} \mid x_{i}-$ gravity $\mid$
 - VTree：取组成net的所有pins，计算y方向的平均值作为树干，其余pin竖直连接到该树干，从而构成斯坦纳树算线长。单线网线长的计算式为：$\max _{i, j \in e}\left|x_{i}-x_{j}\right|+\sum_{i \in e} \mid y_{i}-$ gravity $\mid$
 - Flute/Slute：Flute/Slute通过离线建表，在线查表的方式，可以快速得到一个net的若干个斯坦纳树。下图为算法流程示例：
 
-  ![image.png](https://images.gitee.com/uploads/images/2022/0525/233202_ddab9669_8002667.png)
+  ![image.png](./iEV/fig.8.png)
 - Clique：将组成net的所有pins两两相连，计算两两pins的距离和并乘以一个系数，得到总线长。其中系数一般取值为$\frac{1}{|V|-1}$ 或$\frac{2}{|V|}$，${|V|}$指pins的个数。单线网线长的计算式为：$\frac{1}{|V|-1} \sum_{(x, y),\left(x^{\prime}, y^{\prime}\right) \in V}\left(\left|x-x^{\prime}\right|+\left|y-y^{\prime}\right|\right)$
 - Star：取组成net的所有pins的x和y方向坐标均值，建立一个虚拟pin点，随后其他pins都连接到该虚拟pin点。单线网线长的计算公式为：$\min _{\left(x^{\prime}, y^{\prime}\right) \in \mathbb{R}^{2}} \sum_{(x, y) \in V}\left(\left|x-x^{\prime}\right|+\left|y-y^{\prime}\right|\right) .$
 - B2B：该模型是在Clique模型基础上改进的，Clique模型需要计算内部pin的线长，而B2B则只计算pin到边界pins的线长。以x方向线长计算为例，两种模型对比如下图
 
-  ![image.png](https://images.gitee.com/uploads/images/2022/0526/141312_423d4481_8002667.png)
+  ![image.png](./iEV/fig.9.png)
 - Driver2Sink：首先确定线网的driver pin，随后按照L-shaped连线计算driver pin到其余sink pins的线长
 
 #### 2.5.2 时序模型及算法
@@ -558,18 +558,18 @@ iEV 总体架构如下图所示，其中：
     - 得到寄生参数RC值后，对于单输入单输出的 net，假设不考虑 net 之间的耦合电容（即不考虑噪声的影响），并且也不存在电阻性的反馈回路的情况，用 Elmore Delay 模型来计算Net Delay。
     - 以下图为例概述该模型和计算方法。在长的导线里，增加的电阻对于驱动门（driver）表现为一个分布的RC负载（load）。为简单起见，驱动门用一个理想的电压源代表，分布的RC线路转变为一个集总的n段RC阶梯结构。总电阻是线路上所有独立电阻的总和，即$R_{\text {wire }}=n R_{w}$；对总电容这种关系同样成立，即$C_{\text {wire }}=n C_{w}$。
 
-    ![image.png](https://images.gitee.com/uploads/images/2022/0526/161326_f82f20fb_8002667.png)
+    ![image.png](./iEV/fig.10.png)
 
     - 以下图为例具体介绍该模型和计算方法。RC阶梯的elmore delay计算要涉及到要对电路中每个节点计算该节点的电容与从起始节点到该节点所有电阻之和的乘积。其输出点elmore delay表达为：$\tau=R_{1} C_{1}+\left(R_{1}+R_{2}\right) C_{2}+\left(R_{1}+R_{2}+R_{3}\right) C_{3}$。对于一个通常的网络，其elmore delay计算公式为：$\tau_{t}=\sum_{k}\left(C_{k} \times R_{t k}\right)$，其中, 我们感兴趣的节点是 $t , C_{k}$ 是节点 $k$ 的电容, $R_{t k}$ 是从起始节点到节点 $t$ 和从起始节点到节点 $k$ 所有共用的电阻之和。换句话讲，我们访问每个节点并且将该节点的电容与一个电阻值相乘，这个电阻是以下两条路径的共用电阻之和：一条从起始点到节点 $t$, 另一条从起始点到节点 $k$。想要了解更详细的内容，可以查阅书籍《数字集成电路分析与设计：深亚微米工艺第三版》第10章。
 
-      ![image.png](https://images.gitee.com/uploads/images/2022/0526/162144_dd4cd782_8002667.png)
+      ![image.png](./iEV/fig.11.png)
   - 长导线的RC延迟：对于长导线，可根据总的电阻和总的电容计算 $RC$ 延时。如果导线的总长是$L$，并且每一段的长度是 $\Delta L$，那么 $L=n \Delta L$ 。设导线的单位长度电阻是 $R_{\mathrm{int}}=r$，导线单位长度电容是 $C_{\text {int }}=c$ ，总电阻是 $R_{\text {wire }}=r L$ 并且总的电容是 $C_{\text {wire }}=c L$ 假设有 $n$ 段，用elmore delay计算得到：
 
     $\begin{aligned} \tau_{\text {Elmore }} &=(r \Delta L)(c \Delta L)+2(r \Delta L)(c \Delta L)+\cdots+n(r \Delta L)(c \Delta L) \\ &=(\Delta L)^{2} r c(1+2+\cdots+n) \\ &=(\Delta L)^{2} r c(n)(n+1) / 2 \\ & \approx(\Delta L)^{2} r c n^{2} / 2=L^{2} r c / 2=R_{\text {wire }} C_{\text {wire }} / 2 \end{aligned}$
 
     为了精确估算延时，还必须包括所有连线上的扇出负载电容。为简化计算，在计算 $R_{\text {wire }}$和$C_{\text {wire }}$后使用集总RC模型代替分布式RC连线。如下图所示，有三种形式的RC集总模型，但并非都适合于延迟计算，可以通过计算相应的时间常数来评估每个模型。
 
-    <img src="https://images.gitee.com/uploads/images/2022/0526/165812_6a14f769_8002667.png" height=200/>
+    <img src="./iEV/fig.12.png" height=200/>
 
     首先， $L$ 模型的时间常数是 $R_{\text {wire }} C_{\text {wire }}$ 。由于延迟应该是 $R_{\text {wire }} C_{\text {wire }} / 2$，所以不应使用这个模型。第二个模型是 $\Pi$ 模型，电容分为两半赋给输入和输出，时间常数是 $R_{\text {wire }} C_{\text {wire }} / 2$。 第三个模型是 $\mathrm{T}$ 模型, 电阻分为两半赋给输入和输出，这里时间常数也是 $R_{\text {wire }} C_{\text {wire }} / 2$ 。所以，$L$ 模型对于长的分布式 $R C$ 连线不是一个精确的模型，而 $\mathrm{II}$ 模型和 $\mathrm{T}$ 模型产生了正确的结果， 因此对于延迟计算都是命适的。 然而，$T$ 模型有额外的节点, 可能增加计算的数量。其结果是，对于分布式RC连线， $\Pi$ 模型是最常用的集总模型。我们的时序评估也是采用 $\Pi$ 模型。
 
@@ -723,11 +723,11 @@ iEV 总体架构如下图所示，其中：
       - RUDY 基于两个假设。一是布线器会尽其所能布线，也即每一个线网的布线长度会近似为于其最小斯坦纳树长度；二是每一个线网相比整个芯片的尺寸来讲都微不足道，因此没有必要对单个线网进行过于准确的布线需求估计。
       - 用$n$表示一个线网的BBox，定义其均匀线密度$d_{n}$，它由线面积和BBox面积的比值决定，表示BBox单位面积的布线需求。其计算方法如下：
 
-        ![image.png](https://images.gitee.com/uploads/images/2022/0526/214632_fbbc4c0c_8002667.png)
+        ![image.png](./iEV/fig.13.png)
       - 其中，分子表示线面积，分母表示BBox的面积，$p$为芯片的平均线间距；$L_{n}$可以由HPWL或最小斯坦纳树线长模型得到，因为HPWL的计算速度明显要快得多，所以采用HPWL估计线长，由上述定义，有$L_{n} = w_{n} + h_{n}$。
       - 为了定义布线需求的数学函数表达, 先在 $X + Y$ 平面上定义矩形区域函数:
 
-        ![image.png](https://images.gitee.com/uploads/images/2022/0526/215617_b6a5843d_8002667.png)
+        ![image.png](./iEV/fig.14.png)
 
         其中 $x_{l l} 、 y_{l l}$ 表示矩形左下角的点的横纵坐标, $w_{n} 、 h_{n}$ 表示 $\mathrm{BBox}$ 的宽度和高 。随后，将布线需求定义为：$D_{\text {rout }}^{\text {dem }}(x, y)=\sum_{n=1}^{N} d_{n} \cdot R\left(x, y ; x_{n}, y_{n}, w_{n}, h_{n}\right)$，即布局区域内的布线总需求等于该布局上所有线网集合内的每一个BBox占用的线密度加权求和。
       - RUDY由矩形均匀线密度按线网定义，模拟芯片区域上的导线分布，既不依赖于网格，也不依赖于特定的布线器模型，能够准确估计实际的布线需求，并且需要耗费的时间也很少，因此受到广泛的应用。
@@ -739,7 +739,7 @@ iEV 总体架构如下图所示，其中：
 
       - 属于RUDY方法和引脚密度的结合。该方法在分子项中去掉了RUDY中对线间距的考虑，而将分子项简化为1，若有pin则累加该项一次，其数学表示为：
 
-        <img src="https://images.gitee.com/uploads/images/2022/0526/221424_8359bfab_8002667.png" height=100/>
+        <img src="./iEV/fig.15.png" height=100/>
     - 辅助功能函数：
 
       - RUDY：辅助函数为 `getRudyRatio()`
@@ -817,13 +817,13 @@ iEV 总体架构如下图所示，其中：
 
 - IDBWDatabase：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/094058_bb946f46_8002667.png" height=600/>
+  <img src="./iEV/fig.16.png" height=600/>
 - Design：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/094148_e707a4b9_8002667.png" height=600/>
+  <img src="./iEV/fig.17.png" height=600/>
 - Layout：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/094249_73f403ce_8002667.png" height=400/>
+  <img src="./iEV/fig.18.png" height=400/>
 
 #### 2.6.2 线长评估器
 
@@ -831,13 +831,13 @@ iEV 总体架构如下图所示，其中：
 
 - LengthEvaluator：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/094724_8e9cabba_8002667.png" height=500/>
+  <img src="./iEV/fig.19.png" height=500/>
 - LengthNet：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/094754_8c836d9a_8002667.png" height=450/>
+  <img src="./iEV/fig.20.png" height=450/>
 - LengthPin：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/094858_fd985bf5_8002667.png" height=500/>
+  <img src="./iEV/fig.21.png" height=500/>
 
 #### 2.6.3 时序评估器
 
@@ -845,13 +845,13 @@ iEV 总体架构如下图所示，其中：
 
 - TimingEvaluator：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/095256_844e8e15_8002667.png" height=650/>
+  <img src="./iEV/fig.22.png" height=650/>
 - TimingNet：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/095328_cfc04f8a_8002667.png" height=400/>
+  <img src="./iEV/fig.23.png" height=400/>
 - TimingPin：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/095437_da29eca6_8002667.png" height=400/>
+  <img src="./iEV/fig.24.png" height=400/>
 
 #### 2.6.4 拥塞评估器
 
@@ -859,26 +859,26 @@ iEV 总体架构如下图所示，其中：
 
 - 顶层类CongestionEvaluator：
 
-  <img src="https://images.gitee.com/uploads/images/2022/0527/100138_a27b63b3_8002667.png" height=700/>
+  <img src="./iEV/fig.25.png" height=700/>
 - 设计数据类：
 
   - CongestionNet：
 
-    <img src="https://images.gitee.com/uploads/images/2022/0527/111854_3a3602e1_8002667.png" height=400/>
+    <img src="./iEV/fig.26.png" height=400/>
   - CongestionPin：
 
-    <img src="https://images.gitee.com/uploads/images/2022/0527/112046_61a315b9_8002667.png" height=500/>
+    <img src="./iEV/fig.27.png" height=500/>
   - CongestionInst：
 
-    <img src="https://images.gitee.com/uploads/images/2022/0527/112239_869ad131_8002667.png" height=500/>
+    <img src="./iEV/fig.28.png" height=500/>
 - 版图数据类：
 
   - BinGrid：
 
-    <img src="https://images.gitee.com/uploads/images/2022/0527/112328_e55f5344_8002667.png" height=380/>
+    <img src="./iEV/fig.29.png" height=380/>
   - TileGrid：
 
-    <img src="https://images.gitee.com/uploads/images/2022/0527/112414_8edcec00_8002667.png" height=500/>
+    <img src="./iEV/fig.30.png" height=500/>
 
 ## 3. 接口设计
 
@@ -1058,13 +1058,13 @@ iEV 总体架构如下图所示，其中：
 
 从左到右依次为 iEV、商业工具Innovus、开源软件OpenRoad所产生的评估热力图，评估结果基本保持一致。
 
-<img src="https://images.gitee.com/uploads/images/2022/0524/001342_23ee070e_8002667.png" height=250/>
+<img src="./iEV/fig.31.png" height=250/>
 
 #### 4.3.2 引脚密度评估
 
 从左到右依次为 iEV、商业工具Innovus所产生的评估热力图，热点分布基本保持一致。开源软件OpenRoad不支持绘制引脚密度热力图。
 
-<img src="https://images.gitee.com/uploads/images/2022/0524/001431_d372cd2d_8002667.png" height=250/>
+<img src="./iEV/fig.32.png" height=250/>
 
 ## 5. TO BE DONE
 
@@ -1075,4 +1075,4 @@ iEV 总体架构如下图所示，其中：
 - 神经网络评估：选择若干评估值作为特征，用CNN模型，预测真正的拥塞/最终DRVs违例
   - Source: Global placement with deep learning-enabled explicit routability optimization
 
-<img src="https://images.gitee.com/uploads/images/2022/0524/110137_04263469_8002667.png" height=300/>
+<img src="./iEV/fig.33.png" height=300/>
