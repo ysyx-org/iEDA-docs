@@ -21,8 +21,8 @@ for (const file of file_list) {
 	if (!(file_dir in dir)) dir[file_dir] = 0;
 	let n = 0;
 	const edited_content = content.toString().replace(
-		/!\[(.*?)\]\((https?\:\/\/.*?\.(png|jpe?g|bmp|svg))\)/gi,
-		(raw, img_name, url) => {
+		/(https?\:\/\/.*?\.(png|jpe?g|bmp|svg))/gi,
+		url => {
 			const
 				[extension] = url
 					.match(/(?<=\.)(png|jpe?g|bmp|svg)$/gi)
@@ -37,9 +37,17 @@ for (const file of file_list) {
 			}
 			download_list.push(new Promise((res, rej) => {
 				console.log(`   - downloading ${url} to ${img_file_path}`);
-				const proc = spawn('curl', [url, '-o', img_file_path, '--connect-timeout', '5'], {
-					stdio: [null, process.stdout, null, null]
-				})
+				const proc = spawn(
+					'curl',
+					[
+						url,
+						'-L',
+						'-o', img_file_path,
+						'--connect-timeout', '5',
+						'-H', '"Accept: image/*"'
+					],
+					{ stdio: [null, process.stdout, null, null] }
+				)
 				proc.on('error', e => {
 					console.error(
 						e.message
@@ -57,13 +65,12 @@ for (const file of file_list) {
 				})
 				proc.on('exit', code => {
 					console.log(`   - download ${url} complete`);
-					console.log(`   - renaming ${img_name} to ${img_alias}`);
 					res()
 				})
 			}))
 			return file_is_index
-				? `![${img_alias}](./${img_file_name})`
-				: `![${img_alias}](./${file_name_no_extension}/${img_file_name})`;
+				? `./${img_file_name}`
+				: `./${file_name_no_extension}/${img_file_name}`;
 		}
 	)
 	tasks.push(

@@ -276,7 +276,7 @@ void runChecker();
 #### 2.1.2 软件架构设计
 
 软件架构设计在项目代码组织上实现功能架构设计。
-![iPL软件架构](https://gitee.com/i-eda/dashboard/attach_files/1078892/download "iPL软件架构")
+![iPL软件架构](https://gitee.com/i-eda/dashboard/attach_files/1078892/download.png "iPL软件架构")
 
 ##### 2.1.2.1 iPL项目目录结构
 
@@ -360,7 +360,7 @@ void runChecker();
 
 ### 2.2 软件流程
 
-![iPL软件流程](https://gitee.com/i-eda/dashboard/attach_files/1080095/download "iPL软件流程")
+![iPL软件流程](https://gitee.com/i-eda/dashboard/attach_files/1080095/download.png "iPL软件流程")
 
 1. 输入iPL的配置文件pl_config.json
 2. iPL根据配置文件自动启动Wrapper模块转化生成iPL的基础数据，或由外部提供DBWrapper，初始化PlacerDB
@@ -1079,14 +1079,14 @@ $iPL_LG_ROOT : $iPL_ROOT/src/operator/detail_placer
 ##### 2.5.1.1 线长模型
 
 * 理论
-  ![线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080014/download "线长模型")
+  ![线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080014/download.png "线长模型")
   全局布局使用的线长评估模型是半周长线长模型HPWL，它能够准确描述3个pin点以下规模的线网（该类型线网在设计中占大多数），且具有计算简便，准确性高的特点。
-  ![HPWL模型](https://gitee.com/i-eda/dashboard/attach_files/1080011/download "HPWL模型")
+  ![HPWL模型](https://gitee.com/i-eda/dashboard/attach_files/1080011/download.png "HPWL模型")
   由于HPWL模型非光滑，为了后续融合梯度法，需对其进行平滑化处理。有两种常用的线长平滑化函数，分别是LSE和WA。
-  ![LSE线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080012/download "LSE线长模型")
-  ![LSE线长模型图示](https://gitee.com/i-eda/dashboard/attach_files/1080017/download "LSE线长模型图示")
-  ![WA线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080013/download "WA线长模型")
-  ![WA线长模型图示](https://gitee.com/i-eda/dashboard/attach_files/1080018/download "WA线长模型图示")
+  ![LSE线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080012/download.png "LSE线长模型")
+  ![LSE线长模型图示](https://gitee.com/i-eda/dashboard/attach_files/1080017/download.png "LSE线长模型图示")
+  ![WA线长模型](https://gitee.com/i-eda/dashboard/attach_files/1080013/download.png "WA线长模型")
+  ![WA线长模型图示](https://gitee.com/i-eda/dashboard/attach_files/1080018/download.png "WA线长模型图示")
 * 代码实现
   
   ```bash
@@ -1105,7 +1105,7 @@ $iPL_LG_ROOT : $iPL_ROOT/src/operator/detail_placer
 ##### 2.5.1.3 Nesterov布局模型
 
 * 理论
-  ![Nesterov迭代](https://gitee.com/i-eda/dashboard/attach_files/1079982/download "Nesterov迭代")
+  ![Nesterov迭代](https://gitee.com/i-eda/dashboard/attach_files/1079982/download.png "Nesterov迭代")
 * 对应的代码实现
 
 ```bash
