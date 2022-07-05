@@ -11,7 +11,7 @@ module.exports = [
 		'link',
 		{
 			rel: 'stylesheet',
-			href: '/docs/res/fa/all.min.css'
+			href: '/res/fa/all.min.css'
 		}
 	],
 	[

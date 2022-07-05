@@ -26,14 +26,24 @@ ul.navbar-dropdown {
 		}
 
 		.navbar-dropdown-item {
-			font-size: 0.9rem;
-			padding: 0.6em 0.2em;
-			font-weight: 500;
-			& :hover {
+			padding: 0.8em 0.2em;
+			margin: 0;
+			& > * {
+				font-size: 0.9rem;
+				font-weight: 600 !important;
+				line-height: 1.25 !important;
+				margin: 0;
+				padding: 0;
+				color: var(--ct-gray);
+			}
+			a:hover  {
 				color: var(--c-brand);
 			}
 			&:not(:first-child) {
 				border-top: 1px solid var(--c-border);
+			}
+			.navbar-dropdown-subtitle {
+				border: none !important;
 			}
 		}
 

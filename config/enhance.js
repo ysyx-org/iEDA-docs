@@ -1,10 +1,10 @@
 import { defineClientAppEnhance } from '@vuepress/client'
-// import CC from '../common/components'
+import CC from '../common/components'
 
 export default defineClientAppEnhance(({ app, router, siteData }) => {
-	// .for (const el in CC) {
-	// 	app.component(el, CC[el])
-	// }
+	for (const el in CC) {
+		app.component(el, CC[el])
+	}
 	router.addRoute('home', {
 		path: '/home',
 		beforeEnter() { location.href = '/' }
