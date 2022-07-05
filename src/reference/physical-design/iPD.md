@@ -5,10 +5,10 @@ history:
   - version: 0.10
     date: 2022-05-23
     author: Yell
-    description: 简要梳理iEDA软件框架与模块功能
+    description: 简要梳理iPD软件框架与模块功能
 ---
 
-# iPD - 物理设计
+# iPD - 总体介绍
 
 ## 1. 简介
 

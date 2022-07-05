@@ -7,7 +7,7 @@ history:
     author: 从祥
 ---
 
-# iCTS - 时序优化
+# iCTS - 时钟树综合
 
 ## 1. 简介
 

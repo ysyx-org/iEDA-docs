@@ -8,7 +8,7 @@ history:
     description: 初稿
 ---
 
-# iPLF - 系统平台
+# iPLF - 交互平台
 
 ## 1. 简介
 

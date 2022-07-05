@@ -12,7 +12,7 @@ history:
     description: iEDA-FP 说明书初始版本
 ---
 
-# iFP - 布局
+# iFP - 布图
 
 ## 1. 简介
 

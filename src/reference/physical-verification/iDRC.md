@@ -12,7 +12,7 @@ history:
     description: 在此填写简要说明 (可选)
 ---
 
-# iDRC - 设计约束
+# iDRC - 设计规则检查
 
 # 1. 简介
 

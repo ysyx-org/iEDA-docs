@@ -5,7 +5,7 @@ module.exports = [
 	{
 		text: '逻辑综合',
 		path: 'logical-synthesis/',
-		children: ['iLS', 'iMap']
+		children: require('./logical-synthesis/contents')
 	},
 	// 物理设计
 	{
@@ -17,12 +17,12 @@ module.exports = [
 	{
 		text: '签核分析',
 		path: 'sign-off/',
-		children: ['iRCX', 'iSTA', 'iSO']
+		children: require('./sign-off/contents')
 	},
 	// 物理验证
 	{
 		text: '物理验证',
 		path: 'physical-verification/',
-		children: ['iPV']
+		children: require('./physical-verification/contents')
 	},
 ]
