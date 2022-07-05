@@ -131,6 +131,8 @@ report_timing
 
 ![](STA.png)![image.png](https://gitee.com/i-eda/dashboard/attach_files/1073284/download)
 
+
+
 iSTA总体架构如上图所示，其中：
 
 * **时序图构建** ：载入时序网表，并从网表中抽象出电路图，并应用时序约束到图当中。
