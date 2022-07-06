@@ -1,6 +1,10 @@
 module.exports = [
 	// 总体介绍
-	'overview',
+	{
+		text: '总体介绍',
+		path: 'overview/',
+		children: require('./overview/contents')
+	},
 	// 逻辑综合
 	{
 		text: '逻辑综合',
