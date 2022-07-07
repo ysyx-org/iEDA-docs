@@ -24,10 +24,14 @@ module.exports = {
 	 */
 	description,
 	/**
+	 * Markdown extensions
+	 */
+	extendsMarkdown: (md) => md.use(require('markdown-it-mathjax3')),
+	/**
 	 * https://v2.vuepress.vuejs.org/advanced/cookbook/usage-of-client-app-enhance.html
 	 * Client app enhance file.
 	 */
-	clientAppEnhanceFiles: resolve(__dirname, 'enhance.js'),
+	// clientAppEnhanceFiles: resolve(__dirname, 'enhance.js'),
 	/** https://v2.vuepress.vuejs.org/reference/bundler/vite.html#options */
 	// eslint-disable-next-line spellcheck/spell-checker
 	bundler: viteBundler({
