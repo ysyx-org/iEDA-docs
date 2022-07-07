@@ -17,7 +17,7 @@ The documentation site for project iEDA, a free and open-source silicon EDA proj
 	npm --version // Expected to be at least v8.9.x
 	```
 
-> OPTIONAL: use npm mirror registries for optimal specified
+> OPTIONAL: use npm mirror registries for optimal speed
 > ```sh
 > npm config set registry=https://registry.npmmirror.com/
 > ```
