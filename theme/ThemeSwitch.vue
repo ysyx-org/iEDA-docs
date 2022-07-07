@@ -6,6 +6,6 @@ import ColorSchemeSwitch from '@CC/header/ColorSchemeSwitch.vue'
 	<div
 		style="height: 100%; display: flex; margin: 0 0 0 1em; align-items: center"
 	>
-		<color-scheme-switch />
+		<client-only><color-scheme-switch /></client-only>
 	</div>
 </template>
