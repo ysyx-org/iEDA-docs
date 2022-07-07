@@ -1,5 +1,6 @@
 const { description } = require('../package.json')
 const { viteBundler } = require('@vuepress/bundler-vite')
+const { registerComponentsPlugin } = require('@vuepress/plugin-register-components')
 const { resolve } = require('path')
 
 const ROOT = resolve(__dirname, '../');
@@ -44,5 +45,16 @@ module.exports = {
 				},
 			},
 		}
-	})
+	}),
+	plugins: [
+		registerComponentsPlugin({
+			components: Object.fromEntries(
+				['Container', 'Responsive', 'Badge', 'Tri@TriStateLink', 'Btn@Button']
+					.map(s => s.split('@')).map(([name, file = name]) => [
+						name,
+						resolve(ROOT, 'common/components', `${file}.vue`)
+					])
+			)
+		})
+	]
 }

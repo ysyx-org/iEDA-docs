@@ -36,8 +36,8 @@ const contents = Object.freeze(recursivePath([
 		children: [
 			// 总体介绍
 			'.',
-			// 工具安装
-			'install-tools',
+			// 从源码编译
+			'build-from-source',
 			// 自动化设计流程
 			'automated-workflow',
 			// TCL 交互命令
