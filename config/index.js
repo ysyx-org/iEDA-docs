@@ -53,7 +53,7 @@ module.exports = {
 	plugins: [
 		registerComponentsPlugin({
 			components: Object.fromEntries(
-				['Container', 'Responsive', 'Badge', 'Tri@TriStateLink', 'Btn@Button']
+				['Container', 'Responsive', 'Badge', 'Tri@TriStateLink', 'Btn@Button', 'MjxContainer']
 					.map(s => s.split('@')).map(([name, file = name]) => [
 						name,
 						resolve(ROOT, 'common/components', `${file}.vue`)
