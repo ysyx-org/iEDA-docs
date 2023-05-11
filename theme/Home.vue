@@ -4,7 +4,18 @@ import '@CR/global.css'
 </script>
 
 <template>
-	<main class="home">
+	<div style="position: fixed; background: white; inset: 0; z-index: 21; padding: 0 16px; box-sizing: border-box; text-align: center;">
+		<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+			<h2 style="color: var(--ct-gray-light); margin-top: 10px; border-style: none;">
+				iEDA 开源芯片设计平台正在建设中...
+			</h2>
+			<h2 style="color: var(--ct-gray-light); margin-top: 10px; border-style: none;">
+				详情请访问 
+				<a href="https://gitee.com/oscc-project/iEDA" style="word-break: break-all;">https://gitee.com/oscc-project/iEDA</a>
+			</h2>
+		</div>
+	</div>
+	<main class="home" v-if="false">
 		<v-body style="--header-height: 0px; height: 100%">
 			<container flex-column flex-center content-center>
 				<container
